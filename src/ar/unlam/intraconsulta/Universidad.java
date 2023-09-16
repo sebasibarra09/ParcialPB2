@@ -68,14 +68,12 @@ public class Universidad {
 			if (this.materias.get(i).getCodigo().equals(codigo))
 				return this.materias.get(i);
 		}
-		return null;
-	}
+		return null; }
 	
-	private CicloElectivo CrearCicloLectivo(Integer id, LocalDateTime fechaInicioCicloLectivo, LocalDateTime fechaFinalizacionCicloLectivo;
+	private CicloElectivo CrearCicloLectivo(Integer id, LocalDateTime fechaInicioCicloLectivo, LocalDateTime fechaFinalizacionCicloLectivo
 ,LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinalizacionInscripcion) {
 		
 		
 		return null;
 	}
 
-}
