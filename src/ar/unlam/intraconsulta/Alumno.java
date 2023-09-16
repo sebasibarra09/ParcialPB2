@@ -9,7 +9,7 @@ public class Alumno {
 	private LocalDate fechaNacimiento;
 	private String apellido;
 	private String nombre;
-	
+
 	public Alumno(Integer id, Integer dni, LocalDate fechaNacimiento, String apellido, String nombre) {
 		super();
 		this.id = id;
@@ -58,10 +58,5 @@ public class Alumno {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
 
-
-	
-	
 }

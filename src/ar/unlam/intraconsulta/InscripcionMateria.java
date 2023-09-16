@@ -4,10 +4,10 @@ public class InscripcionMateria {
 
 	private Alumno alumno;
 	private Materia materia;
-	/*private Nota nota;*/
+	/* private Nota nota; */
 
 	public InscripcionMateria(Alumno alumno, Materia materia) {
-		this.alumno=alumno;
+		this.alumno = alumno;
 		this.materia = materia;
 	}
 
@@ -27,7 +27,4 @@ public class InscripcionMateria {
 		this.materia = materia;
 	}
 
-
-	
-	
 }
