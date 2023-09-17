@@ -7,15 +7,31 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 public class TestUniversidad {
-	/*
-	 * @Test public void queSePuedaRegistrarUnAlumnoAUnaUniversidad() { String
-	 * nombre = "Unlam"; Universidad unlam = new Universidad (nombre); nombre =
-	 * "Marta"; String apellido = "perez"; Integer dni= 44555; Alumno alumno = new
-	 * Alumno (dni,apellido, nombre); Boolean registroExitoso =
-	 * unlam.registrar(alumno); assertTrue(registroExitoso);
-	 * 
-	 * }
-	 */
+
+	@Test
+	public void queSePuedaRegistrarUnAlumnoAUnaUniversidad() {
+		String nombreUni = "Unlam";
+		Universidad unlam = new Universidad(nombreUni);
+		String nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555666;
+		LocalDate fechaNacimiento = LocalDate.of(1996, 5, 8);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento);
+		Boolean registroExitoso = unlam.registrar(alumno);
+		assertTrue(registroExitoso);
+
+	}
+	
+	@Test
+	public void queNoSePuedaRegistrarDosAlumnosConMismoDNIAUnaUniversidad() {
+		String nombreUni = "Unlam";
+		Universidad unlam = new Universidad(nombreUni);
+		Alumno alumno = new Alumno(44555666, "Perez", "Marta", LocalDate.of(1996, 5, 8));
+		Alumno alumno2 = new Alumno(44555666, "Tevez", "Carlos", LocalDate.of(1990, 4, 3));
+		unlam.registrar(alumno);
+		assertFalse(unlam.registrar(alumno2));
+
+	}
 
 	/*
 	 * @Test public void
