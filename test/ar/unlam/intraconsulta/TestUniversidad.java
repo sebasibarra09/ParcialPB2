@@ -7,22 +7,9 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 public class TestUniversidad {
- /*
-	@Test
-	public void queSePuedaRegistrarUnAlumnoAUnaUniversidad() {
-		 String  nombre = "Unlam";
-    	Universidad unlam = new Universidad (nombre);
-    	nombre = "Marta";
-    	String apellido = "perez";
-    	Integer dni= 44555; 
-    	Alumno alumno = new Alumno (dni,apellido, nombre);
-		Boolean registroExitoso = unlam.registrar(alumno);
-    	assertTrue(registroExitoso);
-    		
-	}*/
+ 
 	
-	/*
-	@Test
+/*	@Test
 	public void queNoSePuedaRegistrarUnAlumnoCuandoElAlumnoYaEsteRegistradoAUnaUniversidad() {
 		 String  nombre = "Unlam";
     	Universidad unlam = new Universidad (nombre);
@@ -34,26 +21,21 @@ public class TestUniversidad {
     	unlam.registrar(alumno);
 		Boolean registroExitoso = unlam.registrar(alumno2);
     	assertFalse(registroExitoso);
-    	
-    	
-	}
-	*/
+	} */
+	
 	@Test
 	public void queSePuedaRegistrarUnaMateriaAUnaUniversidad() {
-		 String  nombre = "Unlam";
+		String  nombre = "Unlam";
     	Universidad unlam = new Universidad (nombre);
     	nombre = "PB2 ";
         Integer codigo = 1;
         Materia pb2 = new Materia (codigo,nombre);
-        assertTrue (unlam.registraMateria(pb2));
-    	       
+        assertTrue (unlam.registraMateria(pb2));	       
 	}
-	
-	
-	
+
 	@Test
 	public void queSePuedaInscribirUnAlumnoenMateria() {
-		 String  nombre = "Unlam";
+		String  nombre = "Unlam";
     	Universidad unlam = new Universidad (nombre);
     	nombre = "PB2 ";
         Integer codigo = 1;
@@ -62,10 +44,11 @@ public class TestUniversidad {
      	nombre = "Marta";
     	String apellido = "perez";
     	Integer dni= 44555; 
-        Alumno alumno = new Alumno (dni,apellido, nombre, fechaNacimiento);
+    	LocalDate fechaNacimiento= LocalDate.of(1999, 1, 8);
+    	LocalDate fechaIngreso = LocalDate.of(2015, 1, 1);
+        Alumno alumno = new Alumno (dni,apellido, nombre, fechaNacimiento, fechaIngreso);
     	unlam.registrar(alumno);
-    	assertTrue (unlam.inscribirAlumnoAUnaMateria(dni,codigo)) ;
-    	       
+    	assertTrue (unlam.inscribirAlumnoAUnaMateria(dni,codigo)) ;       
 	}
 	
 	@Test
@@ -75,14 +58,9 @@ public class TestUniversidad {
 		LocalDate fechaFinalizacionCicloLectivo= LocalDate.of(2008, 5, 8) ;
 		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
 		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
-		
 		CicloElectivo cicloElect = new CicloElectivo (id,fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo, fechaInicioInscripcion, fechaFinalizacionInscripcion);
-		
-		assertEquals(fechaInicioCicloLectivo,cicloElect.getFechaInicioCicloLectivo());
-    	
-    	       
+		assertEquals(fechaInicioCicloLectivo,cicloElect.getFechaInicioCicloLectivo());	       
 	}
-	
 	
 	@Test
 	public void queSePuedaCrearUnCurso() {
@@ -98,22 +76,7 @@ public class TestUniversidad {
 		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
 		CicloElectivo cicloElect = new CicloElectivo (id,fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo, fechaInicioInscripcion, fechaFinalizacionInscripcion);
 		Comision comision1 = new Comision (idCurso,materia,  cicloElect, turno);
-		assertEquals(idCurso,comision1.getId());
-    	
-    	       
+		assertEquals(idCurso,comision1.getId());      
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
 
 }

@@ -2,7 +2,7 @@ package ar.unlam.intraconsulta;
 
 import java.time.LocalDate;
 
-public class Alumno {
+public class Profesor {
 
 	private Integer dni;
 	private LocalDate fechaNacimiento;
@@ -10,20 +10,13 @@ public class Alumno {
 	private String apellido;
 	private String nombre;
 
-	public Alumno(Integer dni, String apellido, String nombre, LocalDate fechaNacimiento, LocalDate fechaIngreso) {
+	public Profesor(Integer id, Integer dni, LocalDate fechaNacimiento, LocalDate fechaIngreso, String apellido,
+			String nombre) {
 		this.dni = dni;
 		this.fechaNacimiento = fechaNacimiento;
 		this.fechaIngreso = fechaIngreso;
 		this.apellido = apellido;
 		this.nombre = nombre;
-	}
-
-	public LocalDate getFechaIngreso() {
-		return fechaIngreso;
-	}
-
-	public void setFechaIngreso(LocalDate fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
 	}
 
 	public Integer getDni() {
@@ -40,6 +33,14 @@ public class Alumno {
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public LocalDate getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(LocalDate fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	public String getApellido() {

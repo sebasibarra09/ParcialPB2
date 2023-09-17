@@ -27,7 +27,5 @@ public class InscripcionMateria {
 		this.materia = materia;
 	}
 
-
-	
 	
 }

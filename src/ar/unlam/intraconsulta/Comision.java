@@ -9,12 +9,12 @@ public class Comision {
 	
 	
 	public Comision(Integer id, Materia materia, CicloElectivo cicloElec, String turno) {
-		super();
 		this.id = id;
 		this.materia = materia;
 		this.cicloElec = cicloElec;
 		this.turno = turno;
 	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -39,6 +39,5 @@ public class Comision {
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
-	
-	
+
 }
