@@ -1,25 +1,39 @@
 package ar.unlam.intraconsulta;
 
 import static org.junit.Assert.*;
-
 import java.time.LocalDate;
+
 
 import org.junit.Test;
 
 public class TestUniversidad {
- /*
+
 	@Test
 	public void queSePuedaRegistrarUnAlumnoAUnaUniversidad() {
 		 String  nombre = "Unlam";
     	Universidad unlam = new Universidad (nombre);
     	nombre = "Marta";
     	String apellido = "perez";
+    	LocalDate fechaNacimiento= LocalDate.of(2005, 5, 8);
     	Integer dni= 44555; 
-    	Alumno alumno = new Alumno (dni,apellido, nombre);
-		Boolean registroExitoso = unlam.registrar(alumno);
-    	assertTrue(registroExitoso);
-    		
-	}*/
+    	Alumno alumno = new Alumno (dni,fechaNacimiento,apellido, nombre);
+		Boolean registroExitoso = unlam.registrarAlumno(alumno);
+    	assertTrue(registroExitoso);	
+	}
+	
+	@Test
+	public void queNoSePuedaRegistrarUnAlumnoConMismoDni() {
+		 String  nombre = "Unlam";
+    	Universidad unlam = new Universidad (nombre);
+    	nombre = "Marta";
+    	String apellido = "perez";
+    	LocalDate fechaNacimiento= LocalDate.of(2005, 5, 8);
+    	Integer dni= 44555; 
+    	Alumno alumno = new Alumno (dni,fechaNacimiento,apellido, nombre);
+		unlam.registrarAlumno(alumno);
+    	assertFalse(unlam.registrarAlumno(new Alumno(44555,LocalDate.of(2005, 5, 8), "Fernandez", "Gonzalo" )));	
+	}
+	
 	
 	/*
 	@Test
@@ -45,9 +59,17 @@ public class TestUniversidad {
     	nombre = "PB2 ";
         Integer codigo = 1;
         Materia pb2 = new Materia (codigo,nombre);
-        assertTrue (unlam.registraMateria(pb2));
-    	       
+        assertTrue (unlam.registraMateria(pb2));     
 	}
+	
+	@Test
+    public void queNoSePuedaRegistrarDosMateriaConMismoIDAUnaUniversidad() {
+        String nombreUni = "Unlam";
+        Universidad unlam = new Universidad(nombreUni);
+        Materia pb2 = new Materia(1, "PB2");
+        unlam.registraMateria(pb2);
+        assertFalse(unlam.registraMateria(new Materia(1, "PB2")));
+    }
 	
 	
 	
@@ -60,10 +82,11 @@ public class TestUniversidad {
         Materia pb2 = new Materia (codigo,nombre);
         unlam.registraMateria(pb2);
      	nombre = "Marta";
+     	LocalDate fechaNacimiento= LocalDate.of(2005, 5, 8);
     	String apellido = "perez";
     	Integer dni= 44555; 
-        Alumno alumno = new Alumno (dni,apellido, nombre, fechaNacimiento);
-    	unlam.registrar(alumno);
+        Alumno alumno = new Alumno (dni, fechaNacimiento,apellido, nombre);
+    	unlam.registrarAlumno(alumno);
     	assertTrue (unlam.inscribirAlumnoAUnaMateria(dni,codigo)) ;
     	       
 	}

@@ -20,11 +20,14 @@ public class Universidad {
 		this.inscripcionesMateria = new ArrayList<>();
 	}
 
-	public Boolean registrar(Alumno alumno) {
-		if (buscarAlumnoPorDni(alumno.getDni()) == null)
-			return this.alumnos.add(alumno);
-		return false;
-	}
+	public Boolean registrarAlumno(Alumno alumno) {
+		   for (int i = 0; i < this.alumnos.size(); i++) {
+	            if (this.alumnos.get(i).getDni().equals(alumno.getDni()))
+	                return false;
+	        }
+	        return this.alumnos.add(alumno);
+
+	    }
 
 	public Alumno buscarAlumnoPorDni(Integer dni) {
 
@@ -45,8 +48,13 @@ public class Universidad {
 	}
 
 	public Boolean registraMateria(Materia materia) {
-		return this.materias.add(materia);
-	}
+        for (int i = 0; i < this.materias.size(); i++) {
+            if (this.materias.get(i).getCodigo().equals(materia.getCodigo()))
+                return false;
+        }
+        return this.materias.add(materia);
+
+    }
 
 	public boolean inscribirAlumnoAUnaMateria(Integer dni, Integer codigo) {
 	
@@ -71,11 +79,5 @@ public class Universidad {
 		return null;
 	}
 	
-	private CicloElectivo CrearCicloLectivo(Integer id, LocalDateTime fechaInicioCicloLectivo, LocalDateTime fechaFinalizacionCicloLectivo;
-,LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinalizacionInscripcion) {
-		
-		
-		return null;
-	}
-
+	
 }
