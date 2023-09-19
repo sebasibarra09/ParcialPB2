@@ -186,6 +186,29 @@ public class TestUniversidad {
 		unlam.agregarComision(comi1);
 		assertFalse(unlam.agregarComision(comi2));
 	}
+	
+	@Test
+	public void queSePuedaRegistrarUnProfesorAUnaUniversidad() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		assertTrue(unlam.agregarDocentes(profe));
+	}
+
+	@Test
+	public void queNoSePuedaRegistrarUnProfesorConMismoDni() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		unlam.agregarDocentes(profe);
+		assertFalse(unlam.agregarDocentes(new Profesor(44555,"Fernandez", "Gonzalo")));
+	}
 
 	@Test
 	public void queSePuedaInscribirUnAlumnoenMateria() {

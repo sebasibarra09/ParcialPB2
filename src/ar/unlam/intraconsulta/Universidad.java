@@ -63,6 +63,15 @@ public class Universidad {
 		return this.comisiones.add(comi);
 
 	}
+	
+	public Boolean agregarDocentes(Profesor profe) {
+		for (int i = 0; i < this.profesores.size(); i++) {
+			if (this.profesores.get(i).getDni().equals(profe.getDni()))
+				return false;
+		}
+		return this.profesores.add(profe);
+		
+	}
 
 	public Alumno buscarAlumnoPorDni(Integer dni) {
 
