@@ -25,28 +25,22 @@ public class Universidad {
 	}
 
 	public Boolean agregarMateria(Materia materia) {
-		for (int i = 0; i < this.materias.size(); i++) {
-			if (this.materias.get(i).getCodigo().equals(materia.getCodigo()))
-				return false;
+			if(!this.materias.contains(materia))
+				return this.materias.add(materia);
+			return false;
 		}
-		return this.materias.add(materia);
-
-	}
 
 	public Boolean agregarAlumno(Alumno alumno) {
-		for (int i = 0; i < this.alumnos.size(); i++) {
-			if (this.alumnos.get(i).getDni().equals(alumno.getDni()))
-				return false;
+			if (!this.alumnos.contains(alumno))
+				return this.alumnos.add(alumno);
+			return false;
 		}
-		return this.alumnos.add(alumno);
-
-	}
+		
 
 	public Boolean agregarCicloLectivo(CicloElectivo cicloElectiv) {
 		for (int i = 0; i < this.cicloElect.size(); i++) {
 			if ((this.cicloElect.get(i).getId().equals(cicloElectiv.getId())) || (this.cicloElect.get(i)
 					.getFechaFinalizacionCicloLectivo().isBefore(cicloElectiv.getFechaInicioCicloLectivo())))
-
 				return false;
 		}
 		return this.cicloElect.add(cicloElectiv);
@@ -65,21 +59,17 @@ public class Universidad {
 	}
 	
 	public Boolean agregarDocentes(Profesor profe) {
-		for (int i = 0; i < this.profesores.size(); i++) {
-			if (this.profesores.get(i).getDni().equals(profe.getDni()))
-				return false;
-		}
-		return this.profesores.add(profe);
+			if (!this.profesores.contains(profe))
+				return this.profesores.add(profe);
+		return false;
 		
 	}
 
 	public Alumno buscarAlumnoPorDni(Integer dni) {
-
 		for (int i = 0; i < alumnos.size(); i++) {
 			if (this.alumnos.get(i).getDni().equals(dni))
 				return this.alumnos.get(i);
 		}
-
 		return null;
 	}
 
@@ -92,17 +82,12 @@ public class Universidad {
 	}
 
 	public boolean inscribirAlumnoAUnaMateria(Integer dni, Integer codigo) {
-
 		Alumno alumno = this.buscarAlumnoPorDni(dni);
 		Materia materia = this.buscarMateriaPorCodigo(codigo);
-
 		if (alumno != null && materia != null) {
-
 			InscripcionMateria inscripcionMateria = new InscripcionMateria(alumno, materia);
 			return this.inscripcionesMateria.add(inscripcionMateria);
-
 		}
-
 		return false;
 	}
 

@@ -145,8 +145,8 @@ public class TestUniversidad {
 		Universidad unlam = new Universidad(nombre);
 		Integer idComi = 004;
 		Integer id = 50;
-		Integer codigo = 1;
-		Integer dni = 12;
+		Integer codigo = 10;
+		Integer dni = 120;
 		String turno = "noche";
 		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
 		String apellido = "Checchia";
@@ -163,7 +163,7 @@ public class TestUniversidad {
 		Nota nota = new Nota(5, 8, 7, 6, 5);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 
-		Integer idComi2 = 003;
+		Integer idComi2 = 004;
 		Integer id2 = 50;
 		Integer codigo2 = 10;
 		Integer dni2 = 120;
