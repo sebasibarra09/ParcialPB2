@@ -1,7 +1,6 @@
 package ar.unlam.intraconsulta;
 
 import static org.junit.Assert.*;
-
 import java.time.LocalDate;
 
 import org.junit.Test;
@@ -9,51 +8,13 @@ import org.junit.Test;
 public class TestUniversidad {
 
 	@Test
-	public void queSePuedaRegistrarUnAlumnoAUnaUniversidad() {
-		String nombreUni = "Unlam";
-		Universidad unlam = new Universidad(nombreUni);
-		String nombre = "Marta";
-		String apellido = "perez";
-		Integer dni = 44555666;
-		LocalDate fechaNacimiento = LocalDate.of(1996, 5, 8);
-		Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento);
-		Boolean registroExitoso = unlam.registrar(alumno);
-		assertTrue(registroExitoso);
-
-	}
-	
-	@Test
-	public void queNoSePuedaRegistrarDosAlumnosConMismoDNIAUnaUniversidad() {
-		String nombreUni = "Unlam";
-		Universidad unlam = new Universidad(nombreUni);
-		Alumno alumno = new Alumno(44555666, "Perez", "Marta", LocalDate.of(1996, 5, 8));
-		Alumno alumno2 = new Alumno(44555666, "Tevez", "Carlos", LocalDate.of(1990, 4, 3));
-		unlam.registrar(alumno);
-		assertFalse(unlam.registrar(alumno2));
-
-	}
-
-	/*
-	 * @Test public void
-	 * queNoSePuedaRegistrarUnAlumnoCuandoElAlumnoYaEsteRegistradoAUnaUniversidad()
-	 * { String nombre = "Unlam"; Universidad unlam = new Universidad (nombre);
-	 * nombre = "Marta"; String apellido = "perez"; Integer dni= 44555; Alumno
-	 * alumno = new Alumno (dni,apellido, nombre); Alumno alumno2 = new Alumno
-	 * (dni,"jose", "Lopez"); unlam.registrar(alumno); Boolean registroExitoso =
-	 * unlam.registrar(alumno2); assertFalse(registroExitoso);
-	 * 
-	 * 
-	 * }
-	 */
-	@Test
 	public void queSePuedaRegistrarUnaMateriaAUnaUniversidad() {
-		String nombre = "Unlam";
-		Universidad unlam = new Universidad(nombre);
-		nombre = "PB2 ";
+		String nombreUni = "Unlam";
+		Universidad unlam = new Universidad(nombreUni);
+		String nombre = "PB2 ";
 		Integer codigo = 1;
 		Materia pb2 = new Materia(codigo, nombre);
-		assertTrue(unlam.registraMateria(pb2));
-
+		assertTrue(unlam.agregarMateria(pb2));
 	}
 
 	@Test
@@ -61,8 +22,192 @@ public class TestUniversidad {
 		String nombreUni = "Unlam";
 		Universidad unlam = new Universidad(nombreUni);
 		Materia pb2 = new Materia(1, "PB2");
-		unlam.registraMateria(pb2);
-		assertFalse(unlam.registraMateria(new Materia(1, "PB2")));
+		unlam.agregarMateria(pb2);
+		assertFalse(unlam.agregarMateria(new Materia(1, "PB2")));
+	}
+
+	@Test
+	public void queSePuedaRegistrarUnAlumnoAUnaUniversidad() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		Integer dni = 44555;
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Boolean registroExitoso = unlam.agregarAlumno(alumno);
+		assertTrue(registroExitoso);
+	}
+
+	@Test
+	public void queNoSePuedaRegistrarUnAlumnoConMismoDni() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		Integer dni = 44555;
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		unlam.agregarAlumno(alumno);
+		assertFalse(unlam.agregarAlumno(new Alumno(44555, LocalDate.of(2005, 5, 8), "Fernandez", "Gonzalo")));
+	}
+
+	@Test
+	public void queSePuedaAgregarUnCicloElectivo() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		Integer id = 002;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2008, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		assertTrue(unlam.agregarCicloLectivo(ciclo1));
+	}
+
+	@Test
+	public void queNoSePuedaAgregarUnCicloElectivoConMismoId() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		Integer id = 002;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2006, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		unlam.agregarCicloLectivo(ciclo1);
+
+		Integer id2 = 002;
+		LocalDate fechaInicioCicloLectivo2 = LocalDate.of(2007, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo2 = LocalDate.of(2008, 5, 8);
+		LocalDate fechaInicioInscripcion2 = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion2 = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo2 = new CicloElectivo(id2, fechaInicioCicloLectivo2, fechaFinalizacionCicloLectivo2,
+				fechaInicioInscripcion2, fechaFinalizacionInscripcion2);
+		assertFalse(unlam.agregarCicloLectivo(ciclo2));
+	}
+
+	@Test
+	public void queNoSePuedaAgregarUnCicloElectivoConSuperposicionDeFecha() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		Integer id = 005;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		unlam.agregarCicloLectivo(ciclo1);
+
+		Integer id2 = 002;
+		LocalDate fechaInicioCicloLectivo2 = LocalDate.of(2007, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo2 = LocalDate.of(2008, 5, 8);
+		LocalDate fechaInicioInscripcion2 = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion2 = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo2 = new CicloElectivo(id2, fechaInicioCicloLectivo2, fechaFinalizacionCicloLectivo2,
+				fechaInicioInscripcion2, fechaFinalizacionInscripcion2);
+		assertFalse(unlam.agregarCicloLectivo(ciclo2));
+	}
+
+	@Test
+	public void queSePuedaAgregarUnaComision() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		Integer dni = 12;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		String apellido = "Checchia";
+
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		assertTrue(unlam.agregarComision(comi1));
+	}
+
+	@Test
+	public void queNoSePuedaAgregarUnaComisionPorDatosRepetidos() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		Integer idComi = 004;
+		Integer id = 50;
+		Integer codigo = 10;
+		Integer dni = 120;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		String apellido = "Checchia";
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+
+		Integer idComi2 = 004;
+		Integer id2 = 50;
+		Integer codigo2 = 10;
+		Integer dni2 = 120;
+		String turno2 = "noche";
+		LocalDate fechaNacimiento2 = LocalDate.of(2005, 5, 8);
+		String apellido2 = "Checchia";
+		LocalDate fechaInicioCicloLectivo2 = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo2 = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion2 = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion2 = LocalDate.of(2015, 5, 8);
+
+		CicloElectivo ciclo2 = new CicloElectivo(id2, fechaInicioCicloLectivo2, fechaFinalizacionCicloLectivo2,
+				fechaInicioInscripcion2, fechaFinalizacionInscripcion2);
+		Alumno alumno2 = new Alumno(dni2, fechaNacimiento2, apellido2, nombre);
+		Profesor profesor2 = new Profesor(codigo2, apellido, nombre);
+		Materia materia2 = new Materia(codigo2, nombre);
+		Nota nota2 = new Nota(5, 8, 7, 6, 5);
+		Comision comi2 = new Comision(idComi2, alumno2, profesor2, materia2, ciclo2, nota2, turno2);
+
+		unlam.agregarComision(comi1);
+		assertFalse(unlam.agregarComision(comi2));
+	}
+	
+	@Test
+	public void queSePuedaRegistrarUnProfesorAUnaUniversidad() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		assertTrue(unlam.agregarDocentes(profe));
+	}
+
+	@Test
+	public void queNoSePuedaRegistrarUnProfesorConMismoDni() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		unlam.agregarDocentes(profe);
+		assertFalse(unlam.agregarDocentes(new Profesor(44555,"Fernandez", "Gonzalo")));
 	}
 
 	@Test
@@ -72,12 +217,13 @@ public class TestUniversidad {
 		nombre = "PB2 ";
 		Integer codigo = 1;
 		Materia pb2 = new Materia(codigo, nombre);
-		unlam.registraMateria(pb2);
+		unlam.agregarMateria(pb2);
 		nombre = "Marta";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
 		String apellido = "perez";
 		Integer dni = 44555;
-		Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento);
-		unlam.registrar(alumno);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		unlam.agregarAlumno(alumno);
 		assertTrue(unlam.inscribirAlumnoAUnaMateria(dni, codigo));
 
 	}
@@ -96,24 +242,72 @@ public class TestUniversidad {
 		assertEquals(fechaInicioCicloLectivo, cicloElect.getFechaInicioCicloLectivo());
 
 	}
-
+	
 	@Test
-	public void queSePuedaCrearUnCurso() {
-		Integer idCurso = 002;
-		Integer codigo = 004;
-		String nombre = "pb2";
-		String turno = "mañana";
-		Materia materia = new Materia(codigo, nombre);
-		Integer id = 002;
-		LocalDate fechaInicioCicloLectivo = LocalDate.of(2005, 5, 8);
-		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2008, 5, 8);
+	public void queSePuedaRegistrarUnProfesorAUnaComision() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
 		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
 		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
-		CicloElectivo cicloElect = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion);
-		Comision comision1 = new Comision(idCurso, materia, cicloElect, turno);
-		assertEquals(idCurso, comision1.getId());
 
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		unlam.agregarDocentes(profe);
+		assertTrue(unlam.asignarDocentesAComision(profe, comi1));
+	}
+	
+	@Test
+	public void queNoSePuedaRegistrarUnProfesorAUnaMismaComision() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		Profesor profe2 = new Profesor(44555, "Riquelme", "Roman");
+		unlam.agregarDocentes(profe);
+		unlam.asignarDocentesAComision(profe, comi1);
+		assertFalse(unlam.asignarDocentesAComision(profe2, comi1));
+		
 	}
 
 }

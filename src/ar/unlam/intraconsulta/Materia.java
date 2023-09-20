@@ -5,27 +5,8 @@ public class Materia {
 	private Integer codigo;
 	private String nombre;
 
-	public Materia(Integer codigo, String nombre) {
-		this.codigo = codigo;
-		this.nombre = nombre;
-	}
-
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,6 +30,27 @@ public class Materia {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	public Materia(Integer codigo, String nombre) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }
