@@ -6,24 +6,41 @@ public class Alumno {
 
 	private Integer dni;
 	private LocalDate fechaNacimiento;
-	private LocalDate fechaIngreso;
 	private String apellido;
 	private String nombre;
 
-	public Alumno(Integer dni, String apellido, String nombre, LocalDate fechaNacimiento, LocalDate fechaIngreso) {
+	public Alumno(Integer dni, LocalDate fechaNacimiento, String apellido, String nombre) {
+		super();
+
 		this.dni = dni;
 		this.fechaNacimiento = fechaNacimiento;
-		this.fechaIngreso = fechaIngreso;
 		this.apellido = apellido;
 		this.nombre = nombre;
 	}
 
-	public LocalDate getFechaIngreso() {
-		return fechaIngreso;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		return result;
 	}
 
-	public void setFechaIngreso(LocalDate fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Alumno other = (Alumno) obj;
+		if (dni == null) {
+			if (other.dni != null)
+				return false;
+		} else if (!dni.equals(other.dni))
+			return false;
+		return true;
 	}
 
 	public Integer getDni() {

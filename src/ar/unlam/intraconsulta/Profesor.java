@@ -1,20 +1,41 @@
 package ar.unlam.intraconsulta;
 
-import java.time.LocalDate;
-
 public class Profesor {
 
 	private Integer dni;
-	private LocalDate fechaNacimiento;
-	private LocalDate fechaIngreso;
 	private String apellido;
 	private String nombre;
+	
+	
 
-	public Profesor(Integer id, Integer dni, LocalDate fechaNacimiento, LocalDate fechaIngreso, String apellido,
-			String nombre) {
-		this.dni = dni;
-		this.fechaNacimiento = fechaNacimiento;
-		this.fechaIngreso = fechaIngreso;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Profesor other = (Profesor) obj;
+		if (dni == null) {
+			if (other.dni != null)
+				return false;
+		} else if (!dni.equals(other.dni))
+			return false;
+		return true;
+	}
+
+	public Profesor(Integer codigo, String apellido, String nombre) {
+		super();
+		this.dni = codigo;
 		this.apellido = apellido;
 		this.nombre = nombre;
 	}
@@ -23,24 +44,8 @@ public class Profesor {
 		return dni;
 	}
 
-	public void setDni(Integer dni) {
-		this.dni = dni;
-	}
-
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public LocalDate getFechaIngreso() {
-		return fechaIngreso;
-	}
-
-	public void setFechaIngreso(LocalDate fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setDni(Integer codigo) {
+		this.dni = codigo;
 	}
 
 	public String getApellido() {

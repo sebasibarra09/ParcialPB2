@@ -2,40 +2,50 @@ package ar.unlam.intraconsulta;
 
 public class Nota {
 
-	private Integer Id;
-	private Integer Nota1;
-	private Integer Nota2;
+	private Integer NotaParcial1;
+	private Integer NotaParcial2;
+	private Integer NotaRecu1;
+	private Integer NotaRecu2;
 	private Integer NotaFinal;
 
-	public Nota(Integer id, Integer nota1, Integer nota2, Integer notaFinal) {
-		Id = id;
-		Nota1 = nota1;
-		Nota2 = nota2;
+	public Nota(Integer notaParcial1, Integer notaParcial2, Integer notaRecu1, Integer notaRecu2, Integer notaFinal) {
+		NotaParcial1 = notaParcial1;
+		NotaParcial2 = notaParcial2;
+		NotaRecu1 = notaRecu1;
+		NotaRecu2 = notaRecu2;
 		NotaFinal = notaFinal;
 	}
 
-	public Integer getId() {
-		return Id;
+	public Integer getNotaParcial1() {
+		return NotaParcial1;
 	}
 
-	public void setId(Integer id) {
-		Id = id;
+	public void setNotaParcial1(Integer notaParcial1) {
+		NotaParcial1 = notaParcial1;
 	}
 
-	public Integer getNota1() {
-		return Nota1;
+	public Integer getNotaParcial2() {
+		return NotaParcial2;
 	}
 
-	public void setNota1(Integer nota1) {
-		Nota1 = nota1;
+	public void setNotaParcial2(Integer notaParcial2) {
+		NotaParcial2 = notaParcial2;
 	}
 
-	public Integer getNota2() {
-		return Nota2;
+	public Integer getNotaRecu1() {
+		return NotaRecu1;
 	}
 
-	public void setNota2(Integer nota2) {
-		Nota2 = nota2;
+	public void setNotaRecu1(Integer notaRecu1) {
+		NotaRecu1 = notaRecu1;
+	}
+
+	public Integer getNotaRecu2() {
+		return NotaRecu2;
+	}
+
+	public void setNotaRecu2(Integer notaRecu2) {
+		NotaRecu2 = notaRecu2;
 	}
 
 	public Integer getNotaFinal() {
@@ -45,5 +55,4 @@ public class Nota {
 	public void setNotaFinal(Integer notaFinal) {
 		NotaFinal = notaFinal;
 	}
-
 }
