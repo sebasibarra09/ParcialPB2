@@ -114,7 +114,7 @@ public class Universidad {
 				for (int j = 0; j < this.materias.size(); j++) {
 					if (this.materias.get(j).getCodigo().equals(codigo2)) {
 						Correlatividad correlativa = new Correlatividad(this.materias.get(i), this.materias.get(j));
-						return true;
+						return this.correlativas.add(correlativa);
 					}
 				}
 			}
