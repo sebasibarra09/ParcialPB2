@@ -64,6 +64,14 @@ public class Universidad {
 		return false;
 		
 	}
+	
+	public Boolean asignarDocentesAComision(Profesor profe, Comision comi) {
+		if (!comi.getProfesor().equals(profe)) {
+			comi.setProfesor(profe);
+			return true;
+		}
+		return false;
+	}
 
 	public Alumno buscarAlumnoPorDni(Integer dni) {
 		for (int i = 0; i < alumnos.size(); i++) {
