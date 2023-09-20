@@ -10,7 +10,9 @@ public class Comision {
 	private Nota nota;
 	private String turno;
 
-	public Comision(Integer id, Alumno alumno, Profesor profesor, Materia materia, CicloElectivo cicloElec, Nota nota, String turno) {
+	public Comision(Integer id, Alumno alumno, Profesor profesor, Materia materia, CicloElectivo cicloElec, Nota nota,
+			String turno) {
+		super();
 		this.id = id;
 		this.alumno = alumno;
 		this.profesor = profesor;
@@ -75,4 +77,5 @@ public class Comision {
 	public void setNota(Nota nota) {
 		this.nota = nota;
 	}
+
 }

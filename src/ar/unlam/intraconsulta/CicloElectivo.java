@@ -12,13 +12,14 @@ public class CicloElectivo {
 
 	public CicloElectivo(Integer id, LocalDate fechaInicioCicloLectivo, LocalDate fechaFinalizacionCicloLectivo,
 			LocalDate fechaInicioInscripcion, LocalDate fechaFinalizacionInscripcion) {
+		super();
 		this.id = id;
 		this.fechaInicioCicloLectivo = fechaInicioCicloLectivo;
 		this.fechaFinalizacionCicloLectivo = fechaFinalizacionCicloLectivo;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinalizacionInscripcion = fechaFinalizacionInscripcion;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

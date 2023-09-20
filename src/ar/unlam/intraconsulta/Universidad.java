@@ -13,6 +13,7 @@ public class Universidad {
 	private ArrayList<CicloElectivo> cicloElect;
 	private ArrayList<Profesor> profesores;
 	private ArrayList<Comision> comisiones;
+	private ArrayList<Correlatividad> correlativas;
 
 	public Universidad(String nombre) {
 		this.nombre = nombre;
@@ -21,21 +22,21 @@ public class Universidad {
 		this.materias = new ArrayList<>();
 		this.profesores = new ArrayList<>();
 		this.comisiones = new ArrayList<>();
+		this.correlativas = new ArrayList<>();
 		this.inscripcionesMateria = new ArrayList<>();
 	}
 
 	public Boolean agregarMateria(Materia materia) {
-			if(!this.materias.contains(materia))
-				return this.materias.add(materia);
-			return false;
-		}
+		if (!this.materias.contains(materia))
+			return this.materias.add(materia);
+		return false;
+	}
 
 	public Boolean agregarAlumno(Alumno alumno) {
-			if (!this.alumnos.contains(alumno))
-				return this.alumnos.add(alumno);
-			return false;
-		}
-		
+		if (!this.alumnos.contains(alumno))
+			return this.alumnos.add(alumno);
+		return false;
+	}
 
 	public Boolean agregarCicloLectivo(CicloElectivo cicloElectiv) {
 		for (int i = 0; i < this.cicloElect.size(); i++) {
@@ -57,12 +58,20 @@ public class Universidad {
 		return this.comisiones.add(comi);
 
 	}
-	
+
 	public Boolean agregarDocentes(Profesor profe) {
-			if (!this.profesores.contains(profe))
-				return this.profesores.add(profe);
+		if (!this.profesores.contains(profe))
+			return this.profesores.add(profe);
 		return false;
-		
+
+	}
+
+	public Boolean asignarDocentesAComision(Profesor profe, Comision comi) {
+		if (!comi.getProfesor().equals(profe)) {
+			comi.setProfesor(profe);
+			return true;
+		}
+		return false;
 	}
 
 	public Alumno buscarAlumnoPorDni(Integer dni) {
@@ -99,4 +108,18 @@ public class Universidad {
 		return null;
 	}
 
+	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
+		for (int i = 0; i < this.materias.size(); i++) {
+			if (this.materias.get(i).getCodigo().equals(codigo1)) {
+				for (int j = 0; j < this.materias.size(); j++) {
+					if (this.materias.get(j).getCodigo().equals(codigo2)) {
+						Correlatividad correlativa = new Correlatividad(this.materias.get(i), this.materias.get(j));
+						return this.correlativas.add(correlativa);
+					}
+				}
+			}
+
+		}
+		return false;
+	}
 }

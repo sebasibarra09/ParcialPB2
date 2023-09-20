@@ -4,11 +4,8 @@ public class Materia {
 
 	private Integer codigo;
 	private String nombre;
-
-	public Materia(Integer codigo, String nombre) {
-		this.codigo = codigo;
-		this.nombre = nombre;
-	}
+	private Integer correlativa;
+	
 	
 	@Override
 	public int hashCode() {
@@ -34,7 +31,13 @@ public class Materia {
 			return false;
 		return true;
 	}
-	
+
+	public Materia(Integer codigo, String nombre) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.correlativa = correlativa;
+	}
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -50,4 +53,5 @@ public class Materia {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 }

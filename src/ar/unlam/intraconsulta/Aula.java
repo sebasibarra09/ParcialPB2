@@ -2,12 +2,7 @@ package ar.unlam.intraconsulta;
 
 public class Aula {
 	private Integer id;
-	private Integer cantidadMaximaAlumnos;
-
-	public Aula(Integer id, Integer cantidadMaximaAlumnos) {
-		this.id = id;
-		this.cantidadMaximaAlumnos = cantidadMaximaAlumnos;
-	}
+	private Integer cantidadAlumnos;
 
 	public Integer getId() {
 		return id;
@@ -17,12 +12,12 @@ public class Aula {
 		this.id = id;
 	}
 
-	public Integer getCantidadMaximaAlumnos() {
-		return cantidadMaximaAlumnos;
+	public Integer getCantidadAlumnos() {
+		return cantidadAlumnos;
 	}
 
-	public void setCantidadMaximaAlumnos(Integer cantidadMaximaAlumnos) {
-		this.cantidadMaximaAlumnos = cantidadMaximaAlumnos;
+	public void setCantidadAlumnos(Integer cantidadAlumnos) {
+		this.cantidadAlumnos = cantidadAlumnos;
 	}
 
 }

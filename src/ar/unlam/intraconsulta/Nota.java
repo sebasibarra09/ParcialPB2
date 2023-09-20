@@ -9,6 +9,7 @@ public class Nota {
 	private Integer NotaFinal;
 
 	public Nota(Integer notaParcial1, Integer notaParcial2, Integer notaRecu1, Integer notaRecu2, Integer notaFinal) {
+		super();
 		NotaParcial1 = notaParcial1;
 		NotaParcial2 = notaParcial2;
 		NotaRecu1 = notaRecu1;
@@ -55,4 +56,5 @@ public class Nota {
 	public void setNotaFinal(Integer notaFinal) {
 		NotaFinal = notaFinal;
 	}
+
 }
