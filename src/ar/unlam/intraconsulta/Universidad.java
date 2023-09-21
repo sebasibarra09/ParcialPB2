@@ -107,15 +107,34 @@ public class Universidad {
 		}
 		return null;
 	}
+	
+	private Comision buscarComisionPorId(Integer codigo) {
+		for (int i = 0; i < this.comisiones.size(); i++) {
+			if (this.comisiones.get(i).getId().equals(codigo))
+				return this.comisiones.get(i);
+		}
+		return null;
+	}
 
 	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
 		Materia materia1 = this.buscarMateriaPorCodigo(codigo1);
 		Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
-		if(materia1 != null && materia2!= null) {
+		if(materia1 != null && materia2 != null) {
 		Correlatividad correlativa = new Correlatividad(materia1, materia2);
 		return this.correlativas.add(correlativa);		
 		}
 		return false;
+	}
+
+	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
+		Alumno alumno = this.buscarAlumnoPorDni(dni);
+		Comision comi = this.buscarComisionPorId(id);
+		if(alumno == null || comi == null) {
+			return false;		
+			}
+		
+		
+		return true;
 	}
 
 	

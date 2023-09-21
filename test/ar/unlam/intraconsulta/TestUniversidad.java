@@ -325,7 +325,7 @@ public class TestUniversidad {
 		Correlatividad correlativa = new Correlatividad (pb2,pb3);
 		assertTrue(unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
 	}
-	/*
+	
 	@Test
 	public void queSePuedaRegistrarUnAlumnoAUnaComision() {
 		String nombre = "Unlam";
@@ -355,8 +355,9 @@ public class TestUniversidad {
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni,apellido, nombre);
 		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
 		assertTrue(unlam.inscribirAlumnoAComision (alumno.getDni(), comi1.getId()));
-	}*/
+	}
 	
 	
 
