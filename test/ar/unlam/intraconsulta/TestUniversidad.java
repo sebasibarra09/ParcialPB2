@@ -325,7 +325,39 @@ public class TestUniversidad {
 		Correlatividad correlativa = new Correlatividad (pb2,pb3);
 		assertTrue(unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
 	}
+	/*
+	@Test
+	public void queSePuedaRegistrarUnAlumnoAUnaComision() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
 
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		unlam.agregarDocentes(profe);
+		assertTrue(unlam.inscribirAlumnoAComision (alumno.getDni(), comi1.getId()));
+	}*/
+	
 	
 
 }

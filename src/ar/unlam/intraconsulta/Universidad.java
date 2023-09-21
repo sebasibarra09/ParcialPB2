@@ -109,17 +109,16 @@ public class Universidad {
 	}
 
 	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
-		for (int i = 0; i < this.materias.size(); i++) {
-			if (this.materias.get(i).getCodigo().equals(codigo1)) {
-				for (int j = 0; j < this.materias.size(); j++) {
-					if (this.materias.get(j).getCodigo().equals(codigo2)) {
-						Correlatividad correlativa = new Correlatividad(this.materias.get(i), this.materias.get(j));
-						return this.correlativas.add(correlativa);
-					}
-				}
-			}
-
+		Materia materia1 = this.buscarMateriaPorCodigo(codigo1);
+		Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
+		if(materia1 != null && materia2!= null) {
+		Correlatividad correlativa = new Correlatividad(materia1, materia2);
+		return this.correlativas.add(correlativa);		
 		}
 		return false;
 	}
+
+	
+
+	
 }
