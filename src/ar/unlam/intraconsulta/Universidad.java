@@ -107,34 +107,83 @@ public class Universidad {
 		}
 		return null;
 	}
+	
+	private Comision buscarComisionPorId(Integer codigo) {
+		for (int i = 0; i < this.comisiones.size(); i++) {
+			if (this.comisiones.get(i).getId().equals(codigo))
+				return this.comisiones.get(i);
+		}
+		return null;
+	}
 
 	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
-        Materia materia1 = this.buscarMateriaPorCodigo(codigo1);
-        Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
-        if(materia1 != null && materia2!= null) {
-        Correlatividad correlativa = new Correlatividad(materia1, materia2);
-        return this.correlativas.add(correlativa);
-        }
-        return false;
-    }
-	
-	
-	private Boolean InscribirAlumnoEnComision (Integer DNIAlumno, Integer IdComision) {
-		If (comisiones.getId().equals(IdComision) && alumnos.getId().equals(DNIAlumno)){
-			
+		Materia materia1 = this.buscarMateriaPorCodigo(codigo1);
+		Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
+		if(materia1 != null && materia2 != null) {
+		Correlatividad correlativa = new Correlatividad(materia1, materia2);
+		return this.correlativas.add(correlativa);		
 		}
-		
+		return false;
+	}
+
+	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
+		Alumno alumno = this.buscarAlumnoPorDni(dni);
+		Comision comi = this.buscarComisionPorId(id);
+		if(alumno == null || comi == null) {
+			return false;		
+			}
 		
 		return true;
 	}
 	
-	private Boolean asignarProfesorSAComision (Integer DNIProfesor, Integer IdComision) {
-		If (comisiones.getId().equals(IdComision) && profesores.getId().equals(DNIAlumno)){
-			
+	public Boolean notaValida(Integer examen) {
+		if (examen>=  1 && examen <=10) {
+				return true;	
+		} 
+		return false;
+	}
+	
+	public Materia buscarCorrelativa(Materia mat) {
+		for (int i = 0; i < this.correlativas.size(); i++) {
+			if (this.correlativas.get(i).getMateria1().equals(mat))
+				return this.correlativas.get(i).getMateria2();
+		}
+		return null;
+	}
+	
+	
+	public boolean registrarNota (Integer IdComision, Integer IdAlumno, Nota nota) {
+		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
+		Comision comi = this.buscarComisionPorId(IdComision);
+		Materia materia = new Materia (15, "Biologia");
+		alumno.agregarMateria(materia);
+		
+		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) &&
+				notaValida(nota.getNotaRecu()) && notaValida(nota.getNotaFinal()))){
+			return false;
+		}
+		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))) {
+			if(!(nota.getNotaFinal()>=7)) {
+				return false;
+			}
 		}
 		
+		if(nota.getNotaParcial1() < nota.getNotaParcial2()) {
+			nota.setNotaParcial1(nota.getNotaRecu());
+		}else {
+			nota.setNotaParcial2(nota.getNotaRecu());
+		}	
 		
+		if(nota.getNotaParcial1() < 4 && nota.getNotaParcial2() <4) {
+			return false;
+		}
+		
+		alumno.agregarMateria(comi.getMateria());
+		alumno.agregarNotas(nota.getNotaFinal());
 		return true;
 	}
+
+	
+
 	
 }
