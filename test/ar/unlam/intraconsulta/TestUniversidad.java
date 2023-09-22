@@ -326,6 +326,16 @@ public class TestUniversidad {
 		assertTrue(unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
 	}
 
+	@Test
+	public void queSePuedaInscribirUnAlumnoAComision() {
+		
+		
+		
+		
+		
+	}
+	
+	
 	
 
 }
