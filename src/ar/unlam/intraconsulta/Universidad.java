@@ -133,7 +133,53 @@ public class Universidad {
 			return false;		
 			}
 		
+		return true;
+	}
+	
+	public Boolean notaValida(Integer examen) {
+		if (examen>=  1 && examen <=10) {
+				return true;	
+		} 
+		return false;
+	}
+	
+	public Materia buscarCorrelativa(Materia mat) {
+		for (int i = 0; i < this.correlativas.size(); i++) {
+			if (this.correlativas.get(i).getMateria1().equals(mat))
+				return this.correlativas.get(i).getMateria2();
+		}
+		return null;
+	}
+	
+	
+	public boolean registrarNota (Integer IdComision, Integer IdAlumno, Nota nota) {
+		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
+		Comision comi = this.buscarComisionPorId(IdComision);
+		Materia materia = new Materia (15, "Biologia");
+		alumno.agregarMateria(materia);
 		
+		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) &&
+				notaValida(nota.getNotaRecu()) && notaValida(nota.getNotaFinal()))){
+			return false;
+		}
+		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))) {
+			if(!(nota.getNotaFinal()>=7)) {
+				return false;
+			}
+		}
+		
+		if(nota.getNotaParcial1() < nota.getNotaParcial2()) {
+			nota.setNotaParcial1(nota.getNotaRecu());
+		}else {
+			nota.setNotaParcial2(nota.getNotaRecu());
+		}	
+		
+		if(nota.getNotaParcial1() < 4 && nota.getNotaParcial2() <4) {
+			return false;
+		}
+		
+		alumno.agregarMateria(comi.getMateria());
+		alumno.agregarNotas(nota.getNotaFinal());
 		return true;
 	}
 
