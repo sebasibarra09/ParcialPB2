@@ -9,8 +9,8 @@ public class Alumno {
 	private LocalDate fechaNacimiento;
 	private String apellido;
 	private String nombre;
-	private ArrayList<Materia> materiasAprobadas;
-	private ArrayList<Integer> notasMaterias;
+	private ArrayList<Materia> materiasAprobadas = new ArrayList<>();
+	private ArrayList<Integer> notasMaterias = new ArrayList<>();
 
 	public Alumno(Integer dni, LocalDate fechaNacimiento, String apellido, String nombre) {
 		super();

@@ -364,6 +364,11 @@ public class TestUniversidad {
 		
 	}
 	
+	
+	@Test
+	public void queSePuedaHacerUnPromedio() {
+		
+	}
 
 	
 	

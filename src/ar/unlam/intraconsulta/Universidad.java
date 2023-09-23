@@ -14,6 +14,7 @@ public class Universidad {
 	private ArrayList<Profesor> profesores;
 	private ArrayList<Comision> comisiones;
 	private ArrayList<Correlatividad> correlativas;
+	
 
 	public Universidad(String nombre) {
 		this.nombre = nombre;
@@ -183,7 +184,17 @@ public class Universidad {
 		return true;
 	}
 
-	
+	public Double calcularPromedio(Alumno alumnos) {
+		Double promedio = null;
+		Double int1;
+		Integer int2;
+		for (int i = 0; i < alumnos.getNotasMaterias().size(); i++) {
+			int1=alumnos.getNotasMaterias()
+			}
+		int2=alumnos.getMateriasAprobadas().size();
+		promedio=int1/int2;
+		return promedio;
+	}
 
 	
 }
