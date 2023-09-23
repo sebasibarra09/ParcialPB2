@@ -108,33 +108,88 @@ public class Universidad {
 		return null;
 	}
 
+	private Comision buscarComisionPorId(Integer codigo) {
+		for (int i = 0; i < this.comisiones.size(); i++) {
+			if (this.comisiones.get(i).getId().equals(codigo))
+				return this.comisiones.get(i);
+		}
+		return null;
+	}
+
 	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
-		for (int i = 0; i < this.materias.size(); i++) {
-			if (this.materias.get(i).getCodigo().equals(codigo1)) {
-				for (int j = 0; j < this.materias.size(); j++) {
-					if (this.materias.get(j).getCodigo().equals(codigo2)) {
-						Correlatividad correlativa = new Correlatividad(this.materias.get(i), this.materias.get(j));
-						return this.correlativas.add(correlativa);
-					}
-				}
-			}
+		Materia materia1 = this.buscarMateriaPorCodigo(codigo1);
+		Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
+		if (materia1 != null && materia2 != null) {
+			Correlatividad correlativa = new Correlatividad(materia1, materia2);
+			return this.correlativas.add(correlativa);
+		}
+		return false;
+	}
 
+
+	public Boolean quitarCorrelatividad(Correlatividad correlativas) {
+		for (Correlatividad correlativa : this.correlativas) {
+			if (correlativa.getMateria1().equals(correlativas.getMateria1())
+					&& correlativa.getMateria2().equals(correlativas.getMateria2())) {
+				return this.correlativas.remove(correlativa);
+			}
+		}
+		return false;
+	}
+
+	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
+		Alumno alumno = this.buscarAlumnoPorDni(dni);
+		Comision comi = this.buscarComisionPorId(id);
+		if (alumno == null || comi == null) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public Boolean notaValida(Integer examen) {
+		if (examen >= 1 && examen <= 10) {
+			return true;
+		}
+		return false;
+	}
+
+	public Materia buscarCorrelativa(Materia mat) {
+		for (int i = 0; i < this.correlativas.size(); i++) {
+			if (this.correlativas.get(i).getMateria1().equals(mat))
+				return this.correlativas.get(i).getMateria2();
 		}
 		return null;
 	}
 
-	public Boolean quitarCorrelatividad(Integer codigo1, Integer codigo2) {
-		for (int i = 0; i < this.materias.size(); i++) {
-			if (this.materias.get(i).getCodigo().equals(codigo1)) {
-				for (int j = 0; j < this.materias.size(); j++) {
-					if (this.materias.get(j).getCodigo().equals(codigo2)) {
-						Correlatividad correlativa = new Correlatividad(this.materias.get(i), this.materias.get(j));
-						return this.correlativas.remove(correlativa);
-					}
-				}
-			}
+	public boolean registrarNota(Integer IdComision, Integer IdAlumno, Nota nota) {
+		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
+		Comision comi = this.buscarComisionPorId(IdComision);
 
+
+		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) && notaValida(nota.getNotaRecu())
+				&& notaValida(nota.getNotaFinal()))) {
+			return false;
 		}
-		return null;
+		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))) {
+			if (!(nota.getNotaFinal() >= 7)) {
+				return false;
+			}
+		}
+
+		if (nota.getNotaParcial1() < nota.getNotaParcial2()) {
+			nota.setNotaParcial1(nota.getNotaRecu());
+		} else {
+			nota.setNotaParcial2(nota.getNotaRecu());
+		}
+
+		if (nota.getNotaParcial1() < 4 || nota.getNotaParcial2() < 4) {
+			return false;
+		}
+
+		alumno.agregarMateria(comi.getMateria());
+		alumno.agregarNotas(nota.getNotaFinal());
+		return true;
 	}
+
 }

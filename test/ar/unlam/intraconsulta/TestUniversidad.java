@@ -134,7 +134,7 @@ public class TestUniversidad {
 		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Nota nota = new Nota(5, 8, 7, 5);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 		assertTrue(unlam.agregarComision(comi1));
 	}
@@ -160,7 +160,7 @@ public class TestUniversidad {
 		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Nota nota = new Nota(5, 8, 7, 5);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 
 		Integer idComi2 = 004;
@@ -180,13 +180,13 @@ public class TestUniversidad {
 		Alumno alumno2 = new Alumno(dni2, fechaNacimiento2, apellido2, nombre);
 		Profesor profesor2 = new Profesor(codigo2, apellido, nombre);
 		Materia materia2 = new Materia(codigo2, nombre);
-		Nota nota2 = new Nota(5, 8, 7, 6, 5);
+		Nota nota2 = new Nota(5, 8, 7, 5);
 		Comision comi2 = new Comision(idComi2, alumno2, profesor2, materia2, ciclo2, nota2, turno2);
 
 		unlam.agregarComision(comi1);
 		assertFalse(unlam.agregarComision(comi2));
 	}
-	
+
 	@Test
 	public void queSePuedaRegistrarUnProfesorAUnaUniversidad() {
 		String nombre = "Unlam";
@@ -194,7 +194,7 @@ public class TestUniversidad {
 		nombre = "Marta";
 		String apellido = "perez";
 		Integer dni = 44555;
-		Profesor profe = new Profesor(dni,apellido, nombre);
+		Profesor profe = new Profesor(dni, apellido, nombre);
 		assertTrue(unlam.agregarDocentes(profe));
 	}
 
@@ -205,9 +205,9 @@ public class TestUniversidad {
 		nombre = "Marta";
 		String apellido = "perez";
 		Integer dni = 44555;
-		Profesor profe = new Profesor(dni,apellido, nombre);
+		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
-		assertFalse(unlam.agregarDocentes(new Profesor(44555,"Fernandez", "Gonzalo")));
+		assertFalse(unlam.agregarDocentes(new Profesor(44555, "Fernandez", "Gonzalo")));
 	}
 
 	@Test
@@ -242,7 +242,7 @@ public class TestUniversidad {
 		assertEquals(fechaInicioCicloLectivo, cicloElect.getFechaInicioCicloLectivo());
 
 	}
-	
+
 	@Test
 	public void queSePuedaRegistrarUnProfesorAUnaComision() {
 		String nombre = "Unlam";
@@ -250,7 +250,7 @@ public class TestUniversidad {
 		nombre = "Marta";
 		String apellido = "perez";
 		Integer dni = 44555;
-		
+
 		Integer idComi = 003;
 		Integer id = 5;
 		Integer codigo = 1;
@@ -267,14 +267,14 @@ public class TestUniversidad {
 		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Nota nota = new Nota(5, 8, 7, 5);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Profesor profe = new Profesor(dni,apellido, nombre);
+		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
 		assertTrue(unlam.asignarDocentesAComision(profe, comi1));
 	}
-	
+
 	@Test
 	public void queNoSePuedaRegistrarUnProfesorAUnaMismaComision() {
 		String nombre = "Unlam";
@@ -282,7 +282,7 @@ public class TestUniversidad {
 		nombre = "Marta";
 		String apellido = "perez";
 		Integer dni = 44555;
-		
+
 		Integer idComi = 003;
 		Integer id = 5;
 		Integer codigo = 1;
@@ -299,17 +299,17 @@ public class TestUniversidad {
 		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(5, 8, 7, 6, 5);
+		Nota nota = new Nota(5, 8, 7, 5);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Profesor profe = new Profesor(dni,apellido, nombre);
+		Profesor profe = new Profesor(dni, apellido, nombre);
 		Profesor profe2 = new Profesor(44555, "Riquelme", "Roman");
 		unlam.agregarDocentes(profe);
 		unlam.asignarDocentesAComision(profe, comi1);
 		assertFalse(unlam.asignarDocentesAComision(profe2, comi1));
-		
+
 	}
-	
+
 	@Test
 	public void queSePuedaAgregarUnaCorrelativa() {
 		String nombreUni = "Unlam";
@@ -319,13 +319,13 @@ public class TestUniversidad {
 		String nombre2 = "PB3 ";
 		Integer codigo2 = 2;
 		Materia pb2 = new Materia(codigo, nombre);
-		Materia pb3 = new Materia (codigo2, nombre2);
+		Materia pb3 = new Materia(codigo2, nombre2);
 		unlam.agregarMateria(pb2);
 		unlam.agregarMateria(pb3);
-		Correlatividad correlativa = new Correlatividad (pb2,pb3);
+		Correlatividad correlativa = new Correlatividad(pb2, pb3);
 		assertTrue(unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
 	}
-
+	
 	@Test
 	public void queSePuedaEliminarUnaCorrelativa() {
 		String nombreUni = "Unlam";
@@ -335,12 +335,62 @@ public class TestUniversidad {
 		String nombre2 = "PB3 ";
 		Integer codigo2 = 2;
 		Materia pb2 = new Materia(codigo, nombre);
-		Materia pb3 = new Materia (codigo2, nombre2);
+		Materia pb3 = new Materia(codigo2, nombre2);
 		unlam.agregarMateria(pb2);
 		unlam.agregarMateria(pb3);
-		Correlatividad correlativa = new Correlatividad (pb2,pb3);
-		assertTrue(unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
-		assertFalse(unlam.quitarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
+		Correlatividad correlativa = new Correlatividad(pb2, pb3);
+		unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo());
+		assertTrue(unlam.quitarCorrelatividad(correlativa));
+	}
+
+	@Test
+	public void probandoRegistrarNota() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		
+		String nombreMat = "PB2 ";
+		Integer codigoMat = 1;
+		String nombreMat2 = "PB3 ";
+		Integer codigoMat2 = 2;
+		Materia pb1 = new Materia(codigoMat, nombreMat);
+		Materia pb2 = new Materia(codigoMat2, nombreMat2);
+		unlam.agregarMateria(pb1);
+		unlam.agregarMateria(pb2);
+		Correlatividad correlativa = new Correlatividad(pb1, pb2);
+		
+
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		//Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(10, 10, 7, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, pb2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni, apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
+		unlam.agregarCorrelatividad(pb1.getCodigo(), pb2.getCodigo());
+		assertTrue(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
+	}
+
+	@Test
+	public void probarnotavalida() {
+
 	}
 
 }
