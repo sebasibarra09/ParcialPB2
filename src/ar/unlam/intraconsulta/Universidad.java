@@ -155,8 +155,6 @@ public class Universidad {
 	public boolean registrarNota (Integer IdComision, Integer IdAlumno, Nota nota) {
 		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
 		Comision comi = this.buscarComisionPorId(IdComision);
-		Materia materia = new Materia (15, "Biologia");
-		alumno.agregarMateria(materia);
 		
 		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) &&
 				notaValida(nota.getNotaRecu()) && notaValida(nota.getNotaFinal()))){
@@ -174,7 +172,7 @@ public class Universidad {
 			nota.setNotaParcial2(nota.getNotaRecu());
 		}	
 		
-		if(nota.getNotaParcial1() < 4 && nota.getNotaParcial2() <4) {
+		if(nota.getNotaParcial1() < 4 || nota.getNotaParcial2() <4) {
 			return false;
 		}
 		
