@@ -186,6 +186,18 @@ public class Universidad {
 		return alumno.getMateriasAprobadas();
 		
 	}
+	
+	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
+
+        Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+  
+        for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
+            if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
+                return alumno.getNotasMaterias().get(i);
+            }
+        }
+        return null;
+    }
 
 	
 

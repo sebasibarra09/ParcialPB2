@@ -493,6 +493,36 @@ public class TestUniversidad {
 		assertTrue(esperado);
 	}
 	
+	@Test
+    public void queSePuedanObtenerLasNotasDeUnAlumno() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1 ;
+		String turno = "noche" ;
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(1005, "PB1");
+		Nota nota = new Nota(10, 10, 10, 9);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		unlam.agregarDocentes(profesor);
+		unlam.agregarAlumno(alumno);
+        unlam.registrarNota(comi1.getId(), alumno.getDni(), nota);
+        assertEquals(nota.getNotaFinal(),unlam.obtenerNota(alumno.getDni(),materia.getCodigo()));
+    }
+	
 
 	
 	
