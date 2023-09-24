@@ -180,6 +180,12 @@ public class Universidad {
 		alumno.agregarNotas(nota.getNotaFinal());
 		return true;
 	}
+	
+	public ArrayList<Materia> obtenerMateriasAprobadasParaUnAlumno(Integer idAlumno) {
+		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+		return alumno.getMateriasAprobadas();
+		
+	}
 
 	
 
