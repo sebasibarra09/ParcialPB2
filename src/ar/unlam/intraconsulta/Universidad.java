@@ -126,7 +126,6 @@ public class Universidad {
 		return false;
 	}
 
-
 	public Boolean quitarCorrelatividad(Correlatividad correlativas) {
 		for (Correlatividad correlativa : this.correlativas) {
 			if (correlativa.getMateria1().equals(correlativas.getMateria1())
@@ -166,7 +165,6 @@ public class Universidad {
 		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
 		Comision comi = this.buscarComisionPorId(IdComision);
 
-
 		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) && notaValida(nota.getNotaRecu())
 				&& notaValida(nota.getNotaFinal()))) {
 			return false;
@@ -192,4 +190,21 @@ public class Universidad {
 		return true;
 	}
 
+	public ArrayList<Materia> obtenerMateriasAprobadasParaUnAlumno(Integer idAlumno) {
+		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+		return alumno.getMateriasAprobadas();
+
+	}
+
+	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
+
+        Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+
+        for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
+            if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
+                return alumno.getNotasMaterias().get(i);
+            }
+        }
+        return null;
+    }
 }

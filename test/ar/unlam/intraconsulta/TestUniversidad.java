@@ -325,7 +325,7 @@ public class TestUniversidad {
 		Correlatividad correlativa = new Correlatividad(pb2, pb3);
 		assertTrue(unlam.agregarCorrelatividad(pb2.getCodigo(), pb3.getCodigo()));
 	}
-	
+
 	@Test
 	public void queSePuedaEliminarUnaCorrelativa() {
 		String nombreUni = "Unlam";
@@ -344,7 +344,7 @@ public class TestUniversidad {
 	}
 
 	@Test
-	public void probandoRegistrarNota() {
+	public void queNoSePuedaRegistrarUnaNotaQueNoEsteEntre1y10() {
 		String nombre = "Unlam";
 		Universidad unlam = new Universidad(nombre);
 		nombre = "Marta";
@@ -356,17 +356,6 @@ public class TestUniversidad {
 		Integer codigo = 1;
 		String turno = "noche";
 		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
-		
-		String nombreMat = "PB2 ";
-		Integer codigoMat = 1;
-		String nombreMat2 = "PB3 ";
-		Integer codigoMat2 = 2;
-		Materia pb1 = new Materia(codigoMat, nombreMat);
-		Materia pb2 = new Materia(codigoMat2, nombreMat2);
-		unlam.agregarMateria(pb1);
-		unlam.agregarMateria(pb2);
-		Correlatividad correlativa = new Correlatividad(pb1, pb2);
-		
 
 		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
 		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
@@ -377,20 +366,190 @@ public class TestUniversidad {
 		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
-		//Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(10, 10, 7, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, pb2, ciclo1, nota, turno);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(0, 11, 5, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
 		unlam.agregarAlumno(alumno);
-		unlam.agregarCorrelatividad(pb1.getCodigo(), pb2.getCodigo());
+		assertFalse(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
+	}
+
+	@Test
+	public void queNoSePuedaRegistrarUnaNotaMayorA7SiNoAproboLaCorrelativa() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia(1006, "PB2");
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 4);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni, apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
+		assertFalse(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
+	}
+
+	@Test
+	public void queSePuedaRegistrarUnaNotaSiElAlumnoAproboLaCorrelativa() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia(1006, "PB2");
+		alumno.agregarMateria(materia);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni, apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
 		assertTrue(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
 	}
 
 	@Test
-	public void probarnotavalida() {
+	public void queNoSePuedaAprobarElFinalSiNoEstanAprobadosLosParciales() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
 
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(codigo, nombre);
+		Nota nota = new Nota(3, 3, 4, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni, apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
+		assertFalse(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
+	}
+
+	@Test
+	public void queSePuedaObtenerLasMateriasAprobadasParaUnAlumno() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia(1006, "PB2");
+		alumno.agregarMateria(materia);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni, apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
+		Boolean esperado = alumno.getMateriasAprobadas()
+				.equals(unlam.obtenerMateriasAprobadasParaUnAlumno(alumno.getDni()));
+		assertTrue(esperado);
+	}
+
+	@Test
+	public void queSePuedanObtenerLasNotasDeUnAlumno() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1;
+		String turno = "noche";
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia(1006, "PB2");
+		//alumno.agregarMateria(materia);
+		//alumno.agregarMateria(materia2);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni, apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
+		unlam.registrarNota(comi1.getId(), alumno.getDni(), nota);
+		assertEquals(nota.getNotaFinal(),unlam.obtenerNota(alumno.getDni(),materia2.getCodigo()));
+		
+
+	}
+	
+	@Test
+	public void queSePuedaObtenerLasMateriasFaltantesParaUnAlumno() {
+		
 	}
 
 }
