@@ -2,6 +2,7 @@ package ar.unlam.intraconsulta;
 
 import static org.junit.Assert.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -618,7 +619,8 @@ public class TestUniversidad {
 		Profesor profe = new Profesor(dni,apellido, nombre);
 		unlam.agregarDocentes(profe);
 		unlam.agregarAlumno(alumno);
-		assertEquals(3, unlam.obtenerMateriasFaltantesParaUnAlumno(alumno.getDni()));
+		ArrayList<Materia> materiasFaltantes = unlam.obtenerMateriasFaltantesParaUnAlumno(alumno.getDni());
+		assertEquals(3, materiasFaltantes.size());
 	}
 	
 }

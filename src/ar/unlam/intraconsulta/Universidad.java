@@ -213,7 +213,7 @@ public class Universidad {
 
 	}
 	
-	public int obtenerMateriasFaltantesParaUnAlumno(Integer idAlumno){
+	/*public int obtenerMateriasFaltantesParaUnAlumno(Integer idAlumno){
 		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
 		ArrayList<Materia> materiasRestantes = new ArrayList<>();
 		for(Materia materia : this.materias){
@@ -221,7 +221,20 @@ public class Universidad {
 				materiasRestantes.add(materia);
 			}
 		}
+		System.out.println(materiasRestantes.size());
 		return materiasRestantes.size();
+}*/
+	
+	public ArrayList<Materia> obtenerMateriasFaltantesParaUnAlumno(Integer idAlumno){
+		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+		ArrayList<Materia> materiasRestantes = new ArrayList<>();
+		for(Materia materia : this.materias){
+			if(!alumno.getMateriasAprobadas().contains(materia)){
+				materiasRestantes.add(materia);
+			}
+		}
+		System.out.println(materiasRestantes);
+		return materiasRestantes;
 }
 
 	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
@@ -230,7 +243,7 @@ public class Universidad {
 
 		for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
 			if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
-				return alumno.getNotasMaterias().get(i);
+				return alumno.getNotasMaterias().get(i);			
 			}
 		}
 		return null;
