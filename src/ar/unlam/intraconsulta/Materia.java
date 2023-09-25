@@ -4,6 +4,7 @@ public class Materia {
 
 	private Integer codigo;
 	private String nombre;
+	private Integer correlativa;
 	
 	
 	@Override
@@ -34,7 +35,7 @@ public class Materia {
 	public Materia(Integer codigo, String nombre) {
 		this.codigo = codigo;
 		this.nombre = nombre;
-	
+		this.correlativa = correlativa;
 	}
 
 	public Integer getCodigo() {
