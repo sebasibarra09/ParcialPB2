@@ -580,5 +580,45 @@ public class TestUniversidad {
 		assertTrue(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 	
-
+	@Test
+	public void queSePuedaObtenerLasMateriasFaltantesParaUnAlumno() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1 ;
+		String turno = "noche" ;
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia (1006, "PB2");
+		Materia materia3 = new Materia (1007, "BDD");
+		Materia materia4 = new Materia (1008, "PW1");
+		//Materia materia5 = new Materia (1009, "PW2");
+		unlam.agregarMateria(materia);
+		unlam.agregarMateria(materia2);
+		unlam.agregarMateria(materia3);
+		unlam.agregarMateria(materia4);
+		//unlam.agregarMateria(materia5);
+		alumno.agregarMateria(materia);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Profesor profe = new Profesor(dni,apellido, nombre);
+		unlam.agregarDocentes(profe);
+		unlam.agregarAlumno(alumno);
+		assertEquals(3, unlam.obtenerMateriasFaltantesParaUnAlumno(alumno.getDni()));
+	}
+	
 }

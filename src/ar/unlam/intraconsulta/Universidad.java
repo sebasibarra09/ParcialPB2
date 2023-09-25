@@ -212,6 +212,17 @@ public class Universidad {
 		return alumno.getMateriasAprobadas();
 
 	}
+	
+	public int obtenerMateriasFaltantesParaUnAlumno(Integer idAlumno){
+		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+		ArrayList<Materia> materiasRestantes = new ArrayList<>();
+		for(Materia materia : this.materias){
+			if(!alumno.getMateriasAprobadas().contains(materia)){
+				materiasRestantes.add(materia);
+			}
+		}
+		return materiasRestantes.size();
+}
 
 	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
 
