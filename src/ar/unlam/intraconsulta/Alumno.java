@@ -11,6 +11,7 @@ public class Alumno {
 	private String nombre;
 	private ArrayList<Materia> materiasAprobadas = new ArrayList<>();
 	private ArrayList<Integer> notasMaterias = new ArrayList<>();
+	private ArrayList<Materia> materiasNoCursadas = new ArrayList<>();
 
 	public Alumno(Integer dni, LocalDate fechaNacimiento, String apellido, String nombre) {
 		super();
@@ -123,6 +124,18 @@ public class Alumno {
 
 	public void setNotasMaterias(ArrayList<Integer> notasMaterias) {
 		this.notasMaterias = notasMaterias;
+	}
+
+
+
+	public ArrayList<Materia> getMateriasNoCursadas() {
+		return materiasNoCursadas;
+	}
+
+
+
+	public void setMateriasNoCursadas(ArrayList<Materia> materiasNoCursadas) {
+		this.materiasNoCursadas = materiasNoCursadas;
 	}
 
 }

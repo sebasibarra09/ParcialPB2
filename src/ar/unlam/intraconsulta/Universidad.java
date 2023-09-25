@@ -18,6 +18,7 @@ public class Universidad {
 	private ArrayList<Comision> comisiones;
 	private ArrayList<Correlatividad> correlativas;
 	private ArrayList<Aula> aulas; 
+	private ArrayList<Materia> materiasNoCursadas;
 
 	public Universidad(String nombre) {
 		this.nombre = nombre;
@@ -226,19 +227,32 @@ public class Universidad {
         }
         return null;
     }
+	
+	
+	public ArrayList<Materia> obtenerMateriasQueFaltanCursarParaUnAlumno (Integer idAlumno){
+		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+		if (!alumno.getMateriasAprobadas().contains(alumno.getMateriasNoCursadas())) {
+		
+		}
+		
+		
+		
+		return materiasNoCursadas;
+		
+		
+	}
 
-
-	/*public Double calcularPromedio(Alumno alumnos) {
+	public Double calcularPromedio(Alumno alumnos) {
 		Double promedio = null;
-		Double int1;
-		Integer int2;
+		Double totalNotasMateriasAprobadas;
+		Integer cantidadMateriasAprobadas;
 		for (int i = 0; i < alumnos.getNotasMaterias().size(); i++) {
-			int1=alumnos.getNotasMaterias()
-			}
-		int2=alumnos.getMateriasAprobadas().size();
-		promedio=int1/int2;
+			totalNotasMateriasAprobadas=alumnos.getNotasMaterias().;
+		}
+		cantidadMateriasAprobadas=alumnos.getMateriasAprobadas().size();
+		promedio=totalNotasMateriasAprobadas/cantidadMateriasAprobadas;
 		return promedio;
-	}*/
+	}
 
 	
 }

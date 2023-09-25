@@ -575,7 +575,38 @@ public class TestUniversidad {
 		assertTrue(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 	
-
+	@Test
+	public void queSePuedaCalcularUnPromedio() {
+		String nombre = "UNLaM";
+		Universidad UNLaM = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "Perez";
+		Integer dni = 44555666;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1 ;
+		String turno = "Noche" ;
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2020, 05, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2024, 05, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo, fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		UNLaM.agregarAlumno(alumno);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		UNLaM.agregarDocentes(profesor);
+		Materia materia = new Materia(1005, "PB1");
+		UNLaM.agregarMateria(materia);
+		Materia materia2 = new Materia (1006, "PB2");
+		UNLaM.agregarMateria(materia);
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		UNLaM.agregarComision(comi1);
+		UNLaM.calcularPromedio(alumno);
+		
+		
+	}
 	
 	
 
