@@ -131,20 +131,46 @@ public class Universidad {
 		}
 		return false;
 	}
+	
+	public Boolean agregarAula(Aula aula) {
+		if (!this.aulas.contains(aula))
+			return this.aulas.add(aula);
+		return false;
+	}
+	
+	public Aula buscarAulaPorId(Integer codigo) {
+		for (int i = 0; i < this.aulas.size(); i++) {
+			if (this.aulas.get(i).getId().equals(codigo))
+				return this.aulas.get(i);
+		}
+		return null;
+	}
 
-	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
+	public boolean inscribirAlumnoAComision(Integer dni, Integer id, Integer idAula) {
 		Alumno alumno = this.buscarAlumnoPorDni(dni);
 		Comision comi = this.buscarComisionPorId(id);
+		Aula aula = this.buscarAulaPorId(idAula);
 		LocalDate fecha = LocalDate.now();
 		if(alumno == null || comi == null) {
 			return false;		
 			}
 		if (!alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria()))) {
+			if(buscarCorrelativa(comi.getMateria()) != null) 
 				return false;
 		}
 		if (!(comi.getCicloElec().getFechaInicioInscripcion().isBefore(fecha) && comi.getCicloElec().getFechaFinalizacionInscripcion().isAfter(fecha))) {
 			return false;
 		}
+		;
+		if (aula.getCantidadAlumnos()-1 < 0) {
+			return false;
+		} else {
+			aula.setCantidadAlumnos(aula.getCantidadAlumnos()-1);
+		}
+		
+		
+		
+		
 		
 		
 		
