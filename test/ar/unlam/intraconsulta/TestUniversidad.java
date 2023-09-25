@@ -533,7 +533,7 @@ public class TestUniversidad {
 	public void queSePuedaAgregarUnAula() {
 		Integer id = 15;
 		Integer cantidadDeAlumnos =50;
-		Aula aula = new Aula(id, cantidadDeAlumnos);
+		Aula aula = new Aula(id, cantidadDeAlumnos, 15);
 		String nombre = "Unlam";
 		Universidad unlam = new Universidad(nombre);
 		assertTrue(unlam.agregarAula(aula));
@@ -543,7 +543,7 @@ public class TestUniversidad {
 	public void queSePuedaBuscarUnAula() {
 		Integer id = 15;
 		Integer cantidadDeAlumnos =50;
-		Aula aula = new Aula(id, cantidadDeAlumnos);
+		Aula aula = new Aula(id, cantidadDeAlumnos, 15);
 		String nombre = "Unlam";
 		Universidad unlam = new Universidad(nombre);
 		unlam.agregarAula(aula);
@@ -581,10 +581,46 @@ public class TestUniversidad {
 		Nota nota = new Nota(10, 10, 10, 10);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Aula aula = new Aula(15,50);
+		Aula aula = new Aula(15,50, idComi);
 		unlam.agregarAula(aula);
 		assertTrue(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId(), aula.getId()));
 	}
+	@Test
+	public void queSePuedaAsignarUnAula() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1 ;
+		String turno = "noche" ;
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2020, 05, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2024, 05, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		unlam.agregarAlumno(alumno);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		unlam.agregarDocentes(profesor);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia (1006, "PB2");
+		unlam.agregarMateria(materia);
+		unlam.agregarMateria(materia2);
+		alumno.agregarMateria(materia);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Aula aula = new Aula(15,50, idComi);
+		unlam.agregarAula(aula);
+		assertTrue(unlam.asignarAulaAlaComision(comi1.getId(), profesor.getDni(), aula.getId()));
+	}
+	
 	
 	@Test
 	public void queUnAlumnoNoSePuedaAnotarPorqueElAulaEstaLlena() {
@@ -617,10 +653,51 @@ public class TestUniversidad {
 		Nota nota = new Nota(10, 10, 10, 10);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Aula aula = new Aula(15,0);
+		Aula aula = new Aula(15,0, idComi);
 		unlam.agregarAula(aula);
+		unlam.asignarAulaAlaComision(idComi, profesor.getDni(), aula.getId());
 		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId(), aula.getId()));
 	}
+	
+	@Test
+	public void queUnAlumnoNoSePuedaAnotarPorqueYaAproboEsaMateria() {
+		String nombre = "Unlam";
+		Universidad unlam = new Universidad(nombre);
+		nombre = "Marta";
+		String apellido = "perez";
+		Integer dni = 44555;
+		Integer idComi = 003;
+		Integer id = 5;
+		Integer codigo = 1 ;
+		String turno = "noche" ;
+		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2020, 05, 8);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2024, 05, 8);
+		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion);
+		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		unlam.agregarAlumno(alumno);
+		Profesor profesor = new Profesor(codigo, apellido, nombre);
+		unlam.agregarDocentes(profesor);
+		Materia materia = new Materia(1005, "PB1");
+		Materia materia2 = new Materia (1006, "PB2");
+		unlam.agregarMateria(materia);
+		unlam.agregarMateria(materia2);
+		alumno.agregarMateria(materia);
+		alumno.agregarMateria(materia2);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		unlam.agregarComision(comi1);
+		Aula aula = new Aula(15,15, idComi);
+		unlam.agregarAula(aula);
+		unlam.asignarAulaAlaComision(idComi, profesor.getDni(), aula.getId());
+		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId(), aula.getId()));
+	}
+	
+	
 	
 	
 

@@ -145,6 +145,26 @@ public class Universidad {
 		}
 		return null;
 	}
+	
+	public Profesor buscarDocentePorDni(Integer codigo) {
+		for (int i = 0; i < this.profesores.size(); i++) {
+			if (this.profesores.get(i).getDni().equals(codigo))
+				return this.profesores.get(i);
+		}
+		return null;
+	}
+	
+	public Boolean asignarAulaAlaComision(Integer idComision, Integer dniDocente, Integer idAula) {
+		Aula aula = this.buscarAulaPorId(idAula);
+		Comision comi = this.buscarComisionPorId(idComision);
+		Profesor profe = this.buscarDocentePorDni(dniDocente);
+		if (aula != null && comi != null && profe!= null) {
+			aula.setIdComision(idComision);
+			return true;
+		}
+		
+		return false;
+	}
 
 	public boolean inscribirAlumnoAComision(Integer dni, Integer id, Integer idAula) {
 		Alumno alumno = this.buscarAlumnoPorDni(dni);
@@ -170,9 +190,10 @@ public class Universidad {
 		
 		
 		
-		
-		
-		
+		if(alumno.getMateriasAprobadas().contains(comi.getMateria())) {
+			return false;
+		}
+			
 		
 		return true;
 	}
