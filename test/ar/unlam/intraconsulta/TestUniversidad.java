@@ -365,15 +365,13 @@ public class TestUniversidad {
 		Universidad unlam = new Universidad(nombre);
 		nombre = "Marta";
 		String apellido = "perez";
+		
 		Integer dni = 44555;
 		Integer idComi = 003;
 		Integer id = 5;
 		Integer codigo = 1 ;
 		String turno = "noche" ;
-		
-	
 		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
-
 		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
 		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
 		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
@@ -384,13 +382,15 @@ public class TestUniversidad {
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(1005, "PB1");
 		Materia materia2 = new Materia (1006, "PB2");
+		unlam.agregarAlumno(alumno);
+		unlam.agregarMateria(materia);
+		unlam.agregarMateria(materia2);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
-		Nota nota = new Nota(10, 10, 10, 7);
+		Nota nota = new Nota(5, 5, 5, 8);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Profesor profe = new Profesor(dni,apellido, nombre);
-		unlam.agregarDocentes(profe);
-		unlam.agregarAlumno(alumno);
+		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		unlam.agregarComision(comi1);
 		assertFalse(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
 	}
 	
@@ -482,6 +482,7 @@ public class TestUniversidad {
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(1005, "PB1");
 		Materia materia2 = new Materia (1006, "PB2");
+		unlam.agregarMateria(materia);
 		alumno.agregarMateria(materia);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
@@ -490,6 +491,7 @@ public class TestUniversidad {
 		Profesor profe = new Profesor(dni,apellido, nombre);
 		unlam.agregarDocentes(profe);
 		unlam.agregarAlumno(alumno);
+		unlam.registrarNota(idComi, alumno.getDni(), nota);
 		Boolean esperado =alumno.getMateriasAprobadas().equals(unlam.obtenerMateriasAprobadasParaUnAlumno(alumno.getDni()));
 		assertTrue(esperado);
 	}
@@ -515,12 +517,15 @@ public class TestUniversidad {
 		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(1005, "PB1");
-		Nota nota = new Nota(10, 10, 10, 9);
+		unlam.agregarMateria(materia);
+		alumno.agregarMateria(materia);
+		Nota nota = new Nota(10,10,10,9);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		unlam.agregarDocentes(profesor);
 		unlam.agregarAlumno(alumno);
-        unlam.registrarNota(comi1.getId(), alumno.getDni(), nota);
+		unlam.registrarNota(idComi, alumno.getDni(), nota);
+        System.out.println(nota.getNotaFinal());
+        System.out.println(alumno.getNotasMaterias());
         assertEquals(nota.getNotaFinal(),unlam.obtenerNota(alumno.getDni(),materia.getCodigo()));
     }
 	

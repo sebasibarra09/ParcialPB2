@@ -176,8 +176,10 @@ public class Universidad {
 		}
 		
 		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))){
-			if(!(nota.getNotaFinal()>=7))
-				return false;	
+			if(buscarCorrelativa(comi.getMateria()) != null){
+				if(nota.getNotaFinal() >= 7)
+					return false;	
+			}
 		}
 		if(nota.getNotaParcial1() < nota.getNotaParcial2()) {
 			nota.setNotaParcial1(nota.getNotaRecu());
@@ -203,7 +205,6 @@ public class Universidad {
 	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
 
         Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
-  
         for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
             if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
                 return alumno.getNotasMaterias().get(i);
