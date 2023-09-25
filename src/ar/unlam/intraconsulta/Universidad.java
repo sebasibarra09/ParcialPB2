@@ -1,7 +1,10 @@
 package ar.unlam.intraconsulta;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 public class Universidad {
@@ -14,6 +17,7 @@ public class Universidad {
 	private ArrayList<Profesor> profesores;
 	private ArrayList<Comision> comisiones;
 	private ArrayList<Correlatividad> correlativas;
+	private ArrayList<Aula> aulas;
 
 	public Universidad(String nombre) {
 		this.nombre = nombre;
@@ -24,6 +28,7 @@ public class Universidad {
 		this.comisiones = new ArrayList<>();
 		this.correlativas = new ArrayList<>();
 		this.inscripcionesMateria = new ArrayList<>();
+		this.aulas = new ArrayList<>();
 	}
 
 	public Boolean agregarMateria(Materia materia) {
@@ -121,17 +126,8 @@ public class Universidad {
 		Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
 		if (materia1 != null && materia2 != null) {
 			Correlatividad correlativa = new Correlatividad(materia1, materia2);
-			return this.correlativas.add(correlativa);
-		}
-		return false;
-	}
-
-	public Boolean quitarCorrelatividad(Correlatividad correlativas) {
-		for (Correlatividad correlativa : this.correlativas) {
-			if (correlativa.getMateria1().equals(correlativas.getMateria1())
-					&& correlativa.getMateria2().equals(correlativas.getMateria2())) {
-				return this.correlativas.remove(correlativa);
-			}
+			this.correlativas.add(correlativa);
+			return true;
 		}
 		return false;
 	}
@@ -139,7 +135,15 @@ public class Universidad {
 	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
 		Alumno alumno = this.buscarAlumnoPorDni(dni);
 		Comision comi = this.buscarComisionPorId(id);
+		LocalDate fecha = LocalDate.now();
 		if (alumno == null || comi == null) {
+			return false;
+		}
+		if (!alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria()))) {
+			return false;
+		}
+		if (!(comi.getCicloElec().getFechaInicioInscripcion().isBefore(fecha)
+				&& comi.getCicloElec().getFechaFinalizacionInscripcion().isAfter(fecha))) {
 			return false;
 		}
 
@@ -155,27 +159,40 @@ public class Universidad {
 
 	public Materia buscarCorrelativa(Materia mat) {
 		for (int i = 0; i < this.correlativas.size(); i++) {
-			if (this.correlativas.get(i).getMateria1().equals(mat))
-				return this.correlativas.get(i).getMateria2();
+			if (this.correlativas.get(i).getMateria2().equals(mat))
+				return this.correlativas.get(i).getMateria1();
 		}
 		return null;
+	}
+
+	public Boolean quitarCorrelatividad(Correlatividad correlativas) {
+		for (Correlatividad correlativa : this.correlativas) {
+			if (correlativa.getMateria1().equals(correlativas.getMateria1())
+					&& correlativa.getMateria2().equals(correlativas.getMateria2())) {
+				return this.correlativas.remove(correlativa);
+			}
+		}
+		return false;
 	}
 
 	public boolean registrarNota(Integer IdComision, Integer IdAlumno, Nota nota) {
 		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
 		Comision comi = this.buscarComisionPorId(IdComision);
-
 		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) && notaValida(nota.getNotaRecu())
 				&& notaValida(nota.getNotaFinal()))) {
 			return false;
 		}
-		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))) {
-			if (!(nota.getNotaFinal() >= 7)) {
-				return false;
+
+		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))){
+			if(buscarCorrelativa(comi.getMateria()) != null){
+			if(nota.getNotaFinal() >= 7)
+				return false;	
 			}
 		}
 
-		if (nota.getNotaParcial1() < nota.getNotaParcial2()) {
+		if (nota.getNotaParcial1() < nota.getNotaParcial2())
+
+		{
 			nota.setNotaParcial1(nota.getNotaRecu());
 		} else {
 			nota.setNotaParcial2(nota.getNotaRecu());
@@ -198,13 +215,14 @@ public class Universidad {
 
 	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
 
-        Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
+		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
 
-        for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
-            if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
-                return alumno.getNotasMaterias().get(i);
-            }
-        }
-        return null;
-    }
+		for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
+			if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
+				return alumno.getNotasMaterias().get(i);
+			}
+		}
+		return null;
+	}
+
 }

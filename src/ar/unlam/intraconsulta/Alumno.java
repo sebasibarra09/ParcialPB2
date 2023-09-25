@@ -41,7 +41,8 @@ public class Alumno {
 	public void agregarNotas(Integer nota) {
 		notasMaterias.add(nota);
 	}
-	
+
+
 
 	@Override
 	public int hashCode() {
