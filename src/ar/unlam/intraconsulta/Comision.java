@@ -11,6 +11,7 @@ public class Comision {
 	private CicloElectivo cicloElec;
 	private Nota nota;
 	private String turno;
+	private Aula aula;
 
 	public Comision(Integer id, Alumno alumno, Profesor profesor, Materia materia, CicloElectivo cicloElec, Nota nota,
 			String turno) {
@@ -23,6 +24,23 @@ public class Comision {
 		this.nota = nota;
 		this.turno = turno;
 	}
+	
+	
+
+	public Comision(Integer id, ArrayList<Alumno> alumnos, Profesor profesor, Materia materia, CicloElectivo cicloElec,
+			Nota nota, String turno, Aula aula) {
+		super();
+		this.id = id;
+		this.alumnos = alumnos;
+		this.profesor = profesor;
+		this.materia = materia;
+		this.cicloElec = cicloElec;
+		this.nota = nota;
+		this.turno = turno;
+		this.aula = aula;
+	}
+
+
 
 	public Integer getId() {
 		return id;
