@@ -1,11 +1,9 @@
 package ar.unlam.intraconsulta;
 
-import java.util.ArrayList;
-
 public class Comision {
 
 	private Integer id;
-	private ArrayList<Alumno> alumnos;
+	private Alumno alumno;
 	private Profesor profesor;
 	private Materia materia;
 	private CicloElectivo cicloElec;
@@ -16,11 +14,19 @@ public class Comision {
 			String turno) {
 		super();
 		this.id = id;
-		this.alumnos = new ArrayList<Alumno>();
+		this.alumno = alumno;
 		this.profesor = profesor;
 		this.materia = materia;
 		this.cicloElec = cicloElec;
 		this.nota = nota;
+		this.turno = turno;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
 		this.turno = turno;
 	}
 
@@ -32,12 +38,12 @@ public class Comision {
 		this.id = id;
 	}
 
-	public ArrayList<Alumno> getAlumnos() {
-		return alumnos;
+	public Alumno getAlumno() {
+		return alumno;
 	}
 
-	public void setAlumnos(ArrayList<Alumno> alumnos) {
-		this.alumnos = alumnos;
+	public void setAlumno(Alumno alumno) {
+		this.alumno = alumno;
 	}
 
 	public Profesor getProfesor() {
@@ -72,13 +78,4 @@ public class Comision {
 		this.nota = nota;
 	}
 
-	public String getTurno() {
-		return turno;
-	}
-
-	public void setTurno(String turno) {
-		this.turno = turno;
-	}
-
-	
 }

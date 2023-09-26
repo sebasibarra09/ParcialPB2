@@ -1,7 +1,6 @@
 package ar.unlam.intraconsulta;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Alumno {
 
@@ -9,9 +8,6 @@ public class Alumno {
 	private LocalDate fechaNacimiento;
 	private String apellido;
 	private String nombre;
-	private ArrayList<Materia> materiasAprobadas = new ArrayList<>();
-	private ArrayList<Integer> notasMaterias = new ArrayList<>();
-	private ArrayList<Materia> materiasNoCursadas = new ArrayList<>();
 
 	public Alumno(Integer dni, LocalDate fechaNacimiento, String apellido, String nombre) {
 		super();
@@ -21,29 +17,6 @@ public class Alumno {
 		this.apellido = apellido;
 		this.nombre = nombre;
 	}
-	
-	
-
-	public Alumno(Integer dni, LocalDate fechaNacimiento, String apellido, String nombre,
-			ArrayList<Materia> materiasAprobadas, ArrayList<Integer> notasMaterias) {
-		super();
-		this.dni = dni;
-		this.fechaNacimiento = fechaNacimiento;
-		this.apellido = apellido;
-		this.nombre = nombre;
-		this.materiasAprobadas = materiasAprobadas;
-		this.notasMaterias = notasMaterias;
-	}
-	
-	public void agregarMateria(Materia mat) {
-		materiasAprobadas.add(mat);
-	}
-	
-	public void agregarNotas(Integer nota) {
-		notasMaterias.add(nota);
-	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -100,42 +73,6 @@ public class Alumno {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-
-
-	public ArrayList<Materia> getMateriasAprobadas() {
-		return materiasAprobadas;
-	}
-
-
-
-	public void setMateriasAprobadas(ArrayList<Materia> materiasAprobadas) {
-		this.materiasAprobadas = materiasAprobadas;
-	}
-
-
-
-	public ArrayList<Integer> getNotasMaterias() {
-		return notasMaterias;
-	}
-
-
-
-	public void setNotasMaterias(ArrayList<Integer> notasMaterias) {
-		this.notasMaterias = notasMaterias;
-	}
-
-
-
-	public ArrayList<Materia> getMateriasNoCursadas() {
-		return materiasNoCursadas;
-	}
-
-
-
-	public void setMateriasNoCursadas(ArrayList<Materia> materiasNoCursadas) {
-		this.materiasNoCursadas = materiasNoCursadas;
 	}
 
 }

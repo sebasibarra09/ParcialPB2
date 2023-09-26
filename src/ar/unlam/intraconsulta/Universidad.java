@@ -1,10 +1,7 @@
 package ar.unlam.intraconsulta;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 public class Universidad {
@@ -17,8 +14,6 @@ public class Universidad {
 	private ArrayList<Profesor> profesores;
 	private ArrayList<Comision> comisiones;
 	private ArrayList<Correlatividad> correlativas;
-	private ArrayList<Aula> aulas; 
-	private ArrayList<Materia> materiasNoCursadas;
 
 	public Universidad(String nombre) {
 		this.nombre = nombre;
@@ -29,7 +24,6 @@ public class Universidad {
 		this.comisiones = new ArrayList<>();
 		this.correlativas = new ArrayList<>();
 		this.inscripcionesMateria = new ArrayList<>();
-		this.aulas = new ArrayList<>();
 	}
 
 	public Boolean agregarMateria(Materia materia) {
@@ -113,26 +107,22 @@ public class Universidad {
 		}
 		return null;
 	}
-	
-	private Comision buscarComisionPorId(Integer codigo) {
-		for (int i = 0; i < this.comisiones.size(); i++) {
-			if (this.comisiones.get(i).getId().equals(codigo))
-				return this.comisiones.get(i);
+
+	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
+		for (int i = 0; i < this.materias.size(); i++) {
+			if (this.materias.get(i).getCodigo().equals(codigo1)) {
+				for (int j = 0; j < this.materias.size(); j++) {
+					if (this.materias.get(j).getCodigo().equals(codigo2)) {
+						Correlatividad correlativa = new Correlatividad(this.materias.get(i), this.materias.get(j));
+						return this.correlativas.add(correlativa);
+					}
+				}
+			}
+
 		}
 		return null;
 	}
 
-	public Boolean agregarCorrelatividad(Integer codigo1, Integer codigo2) {
-		Materia materia1 = this.buscarMateriaPorCodigo(codigo1);
-		Materia materia2 = this.buscarMateriaPorCodigo(codigo2);
-		if(materia1 != null && materia2 != null) {
-		Correlatividad correlativa = new Correlatividad(materia1, materia2);
-		this.correlativas.add(correlativa);
-		return true;		
-		}
-		return false;
-	}
-	
 	public Boolean quitarCorrelatividad(Integer codigo1, Integer codigo2) {
 		for (int i = 0; i < this.materias.size(); i++) {
 			if (this.materias.get(i).getCodigo().equals(codigo1)) {
@@ -147,112 +137,4 @@ public class Universidad {
 		}
 		return null;
 	}
-
-	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
-		Alumno alumno = this.buscarAlumnoPorDni(dni);
-		Comision comi = this.buscarComisionPorId(id);
-		LocalDate fecha = LocalDate.now();
-		if(alumno == null || comi == null) {
-			return false;		
-			}
-		if (!alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria()))) {
-				return false;
-		}
-		if (!(comi.getCicloElec().getFechaInicioInscripcion().isBefore(fecha) && comi.getCicloElec().getFechaFinalizacionInscripcion().isAfter(fecha))) {
-			return false;
-		}
-		
-		
-		
-		return true;
-	}
-	
-	public Boolean notaValida(Integer examen) {
-		if (examen>=  1 && examen <=10) {
-				return true;	
-		} 
-		return false;
-	}
-	
-	public Materia buscarCorrelativa(Materia mat) {
-		for (int i = 0; i < this.correlativas.size(); i++) {
-			if (this.correlativas.get(i).getMateria2().equals(mat))
-				return this.correlativas.get(i).getMateria1();
-		}
-		return null;
-	}
-	
-	
-	public boolean registrarNota (Integer IdComision, Integer IdAlumno, Nota nota) {
-		Alumno alumno = this.buscarAlumnoPorDni(IdAlumno);
-		Comision comi = this.buscarComisionPorId(IdComision);
-		if (!(notaValida(nota.getNotaParcial1()) && notaValida(nota.getNotaParcial2()) &&
-				notaValida(nota.getNotaRecu()) && notaValida(nota.getNotaFinal()))){
-			return false;
-		}
-		
-		if (!(alumno.getMateriasAprobadas().contains(buscarCorrelativa(comi.getMateria())))){
-			if(!(nota.getNotaFinal()>=7))
-				return false;	
-		}
-		if(nota.getNotaParcial1() < nota.getNotaParcial2()) {
-			nota.setNotaParcial1(nota.getNotaRecu());
-		}else {
-			nota.setNotaParcial2(nota.getNotaRecu());
-		}	
-		
-		if(nota.getNotaParcial1() < 4 || nota.getNotaParcial2() <4) {
-			return false;
-		}
-		
-		alumno.agregarMateria(comi.getMateria());
-		alumno.agregarNotas(nota.getNotaFinal());
-		return true;
-	}
-	
-	public ArrayList<Materia> obtenerMateriasAprobadasParaUnAlumno(Integer idAlumno) {
-		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
-		return alumno.getMateriasAprobadas();
-		
-	}
-	
-	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
-
-        Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
-  
-        for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
-            if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
-                return alumno.getNotasMaterias().get(i);
-            }
-        }
-        return null;
-    }
-	
-	
-	public ArrayList<Materia> obtenerMateriasQueFaltanCursarParaUnAlumno (Integer idAlumno){
-		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
-		if (!alumno.getMateriasAprobadas().contains(alumno.getMateriasNoCursadas())) {
-		
-		}
-		
-		
-		
-		return materiasNoCursadas;
-		
-		
-	}
-
-	public Double calcularPromedio(Alumno alumnos) {
-		Double promedio = null;
-		Double totalNotasMateriasAprobadas;
-		Integer cantidadMateriasAprobadas;
-		for (int i = 0; i < alumnos.getNotasMaterias().size(); i++) {
-			totalNotasMateriasAprobadas=alumnos.getNotasMaterias().;
-		}
-		cantidadMateriasAprobadas=alumnos.getMateriasAprobadas().size();
-		promedio=totalNotasMateriasAprobadas/cantidadMateriasAprobadas;
-		return promedio;
-	}
-
-	
 }
