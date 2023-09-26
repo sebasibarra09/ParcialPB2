@@ -57,7 +57,7 @@ public class Universidad {
 			if (((this.comisiones.get(i).getId().equals(comi.getId()))
 					|| (this.comisiones.get(i).getMateria().getCodigo().equals(comi.getMateria().getCodigo()))
 							&& (this.comisiones.get(i).getCicloElec().getId().equals(comi.getCicloElec().getId()))
-							&& (this.comisiones.get(i).getTurno().equals(comi.getTurno()))))
+							&& (this.comisiones.get(i).getTurnoyDia().equals(comi.getTurnoyDia()))))
 				return false;
 		}
 		return this.comisiones.add(comi);
@@ -72,8 +72,9 @@ public class Universidad {
 	}
 
 	public Boolean asignarDocentesAComision(Profesor profe, Comision comi) {
-		if (!comi.getProfesor().equals(profe)) {
-			comi.setProfesor(profe);
+		if (!comi.getProfesores().contains(profe)) {
+			comi.agregarProfesorAComision(profe);
+			// System.out.println(comi.getProfesores());
 			return true;
 		}
 		return false;
@@ -150,7 +151,7 @@ public class Universidad {
 
 	public Aula buscarAulaPorId(Integer codigo) {
 		for (int i = 0; i < this.aulas.size(); i++) {
-			if (this.aulas.get(i).getIdComision().equals(codigo))
+			if (this.aulas.get(i).getId().equals(codigo))
 				return this.aulas.get(i);
 		}
 		return null;
@@ -164,23 +165,25 @@ public class Universidad {
 		return null;
 	}
 
-	public Boolean asignarAulaAlaComision(Integer idComision, Integer dniDocente) {
+	public Boolean asignarAulaAlaComision(Integer idComision, Integer idAula) {
+		Comision comi = this.buscarComisionPorId(idComision);
 
-		for (int i = 0; i < this.aulas.size(); i++) {
-			if (this.aulas.get(i).getIdComision() == null) {
-				this.aulas.get(i).setIdComision(idComision);
-				//System.out.println(this.aulas.get(i).getIdComision());
-				return true;
+		Aula aula = this.buscarAulaPorId(idAula);
+		// System.out.println(aula);
+		if (comi != null && aula != null) {
+			if (aula.getIdComision() == null) {
+				aula.setIdComision(idComision);
+				comi.setAula(aula);
 			}
+			return true;
 		}
+
 		return false;
 	}
 
 	public boolean inscribirAlumnoAComision(Integer dni, Integer id) {
 		Alumno alumno = this.buscarAlumnoPorDni(dni);
 		Comision comi = this.buscarComisionPorId(id);
-		Aula aula = this.buscarAulaPorId(id);
-		
 		LocalDate fecha = LocalDate.now();
 		if (alumno == null || comi == null) {
 			return false;
@@ -194,10 +197,19 @@ public class Universidad {
 			return false;
 		}
 		;
-		if (aula.getCantidadAlumnos() - 1 < 0) {
+		if (comi.getAula().getCantidadAlumnos() - 1 < 0) {
 			return false;
 		} else {
-			aula.setCantidadAlumnos(aula.getCantidadAlumnos() - 1);
+			comi.getAula().setCantidadAlumnos(comi.getAula().getCantidadAlumnos() - 1);
+		}
+
+		for (int i = 0; i < this.comisiones.size(); i++) {
+			if (this.comisiones.get(i) != comi)
+				if (this.comisiones.get(i).getAlumnos().contains(alumno)) {
+					if (this.comisiones.get(i).getTurnoyDia().equals(comi.getTurnoyDia())) {
+						return false;
+					}
+				}
 		}
 
 		if (alumno.getMateriasAprobadas().contains(comi.getMateria())) {
@@ -294,5 +306,19 @@ public class Universidad {
 		// System.out.println(promedio);
 		return promedio;
 
+	}
+
+	public Boolean asignarProfesorAlaComision(Integer idComision, Integer dniDocente) {
+		Comision comi = this.buscarComisionPorId(idComision);
+		Profesor profe = this.buscarDocentePorDni(dniDocente);
+		if (comi != null && profe != null) {
+			Integer cantprofes = comi.getAlumnos().size() / 20;
+			for (int j = 0; j < cantprofes; j++) {
+				comi.agregarProfesorAComision(profe);
+			}
+			return true;
+		}
+
+		return false;
 	}
 }

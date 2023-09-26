@@ -54,41 +54,41 @@ public class TestUniversidad {
 	}
 
 	@Test
-	public void queSePuedaAgregarUnCicloElectivo() {
-		String nombre = "Unlam";
-		Universidad unlam = new Universidad(nombre);
-		Integer id = 002;
-		LocalDate fechaInicioCicloLectivo = LocalDate.of(2005, 5, 8);
-		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2008, 5, 8);
-		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
-		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
-		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
-				fechaInicioInscripcion, fechaFinalizacionInscripcion);
-		assertTrue(unlam.agregarCicloLectivo(ciclo1));
-	}
+    public void queSePuedaAgregarUnCicloElectivo() {
+        String nombre = "Unlam";
+        Universidad unlam = new Universidad(nombre);
+        Integer id = 002;
+        LocalDate fechaInicioCicloLectivo = LocalDate.of(2005, 5, 8);
+        LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2008, 5, 8);
+        LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+        LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+        CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+                fechaInicioInscripcion, fechaFinalizacionInscripcion);
+        assertTrue(unlam.agregarCicloLectivo(ciclo1));
+    }
 
 	@Test
-	public void queNoSePuedaAgregarUnCicloElectivoConMismoId() {
-		String nombre = "Unlam";
-		Universidad unlam = new Universidad(nombre);
-		Integer id = 002;
-		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
-		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2006, 5, 8);
-		LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
-		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
-		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
-				fechaInicioInscripcion, fechaFinalizacionInscripcion);
-		unlam.agregarCicloLectivo(ciclo1);
+    public void queNoSePuedaAgregarUnCicloElectivoConMismoId() {
+        String nombre = "Unlam";
+        Universidad unlam = new Universidad(nombre);
+        Integer id = 002;
+        LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
+        LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2006, 5, 8);
+        LocalDate fechaInicioInscripcion = LocalDate.of(2010, 5, 8);
+        LocalDate fechaFinalizacionInscripcion = LocalDate.of(2015, 5, 8);
+        CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+                fechaInicioInscripcion, fechaFinalizacionInscripcion);
+        unlam.agregarCicloLectivo(ciclo1);
 
-		Integer id2 = 002;
-		LocalDate fechaInicioCicloLectivo2 = LocalDate.of(2007, 5, 8);
-		LocalDate fechaFinalizacionCicloLectivo2 = LocalDate.of(2008, 5, 8);
-		LocalDate fechaInicioInscripcion2 = LocalDate.of(2010, 5, 8);
-		LocalDate fechaFinalizacionInscripcion2 = LocalDate.of(2015, 5, 8);
-		CicloElectivo ciclo2 = new CicloElectivo(id2, fechaInicioCicloLectivo2, fechaFinalizacionCicloLectivo2,
-				fechaInicioInscripcion2, fechaFinalizacionInscripcion2);
-		assertFalse(unlam.agregarCicloLectivo(ciclo2));
-	}
+        Integer id2 = 002;
+        LocalDate fechaInicioCicloLectivo2 = LocalDate.of(2007, 5, 8);
+        LocalDate fechaFinalizacionCicloLectivo2 = LocalDate.of(2008, 5, 8);
+        LocalDate fechaInicioInscripcion2 = LocalDate.of(2010, 5, 8);
+        LocalDate fechaFinalizacionInscripcion2 = LocalDate.of(2015, 5, 8);
+        CicloElectivo ciclo2 = new CicloElectivo(id2, fechaInicioCicloLectivo2, fechaFinalizacionCicloLectivo2,
+                fechaInicioInscripcion2, fechaFinalizacionInscripcion2);
+        assertFalse(unlam.agregarCicloLectivo(ciclo2));
+    }
 
 	@Test
 	public void queNoSePuedaAgregarUnCicloElectivoConSuperposicionDeFecha() {
@@ -136,7 +136,7 @@ public class TestUniversidad {
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
 		Nota nota = new Nota(5, 8, 7, 5);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		assertTrue(unlam.agregarComision(comi1));
 	}
 
@@ -162,7 +162,7 @@ public class TestUniversidad {
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
 		Nota nota = new Nota(5, 8, 7, 5);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 
 		Integer idComi2 = 004;
 		Integer id2 = 50;
@@ -182,7 +182,7 @@ public class TestUniversidad {
 		Profesor profesor2 = new Profesor(codigo2, apellido, nombre);
 		Materia materia2 = new Materia(codigo2, nombre);
 		Nota nota2 = new Nota(5, 8, 7, 5);
-		Comision comi2 = new Comision(idComi2, alumno2, profesor2, materia2, ciclo2, nota2, turno2);
+		Comision comi2 = new Comision(idComi2, materia2, ciclo2, turno2);
 
 		unlam.agregarComision(comi1);
 		assertFalse(unlam.agregarComision(comi2));
@@ -265,11 +265,11 @@ public class TestUniversidad {
 		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion);
 
-		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		//Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(5, 8, 7, 5);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		//Nota nota = new Nota(5, 8, 7, 5);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
@@ -297,17 +297,18 @@ public class TestUniversidad {
 		CicloElectivo ciclo1 = new CicloElectivo(id, fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion);
 
-		Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
+		//Alumno alumno = new Alumno(dni, fechaNacimiento, apellido, nombre);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
-		Nota nota = new Nota(5, 8, 7, 5);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		//Nota nota = new Nota(5, 8, 7, 5);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		Profesor profe2 = new Profesor(44555, "Riquelme", "Roman");
 		unlam.agregarDocentes(profe);
 		unlam.asignarDocentesAComision(profe, comi1);
 		assertFalse(unlam.asignarDocentesAComision(profe2, comi1));
+		
 
 	}
 
@@ -357,6 +358,7 @@ public class TestUniversidad {
 		Integer codigo = 1;
 		String turno = "noche";
 		LocalDate fechaNacimiento = LocalDate.of(2005, 5, 8);
+		Integer cantidadDeAlumnos = 50;
 
 		LocalDate fechaInicioCicloLectivo = LocalDate.of(2004, 5, 8);
 		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2005, 5, 8);
@@ -369,7 +371,8 @@ public class TestUniversidad {
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
 		Nota nota = new Nota(0, 11, 5, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		Aula aula = new Aula(id, cantidadDeAlumnos, 15);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
@@ -405,7 +408,7 @@ public class TestUniversidad {
 		unlam.agregarMateria(materia2);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(5, 5, 5, 8);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		unlam.agregarComision(comi1);
@@ -441,7 +444,7 @@ public class TestUniversidad {
 		alumno.agregarMateria(materia);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		assertTrue(unlam.registrarNota(comi1.getId(), alumno.getDni(), nota));
 	}
@@ -470,7 +473,7 @@ public class TestUniversidad {
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		Materia materia = new Materia(codigo, nombre);
 		Nota nota = new Nota(3, 3, 4, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
@@ -504,7 +507,7 @@ public class TestUniversidad {
 		alumno.agregarMateria(materia);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
@@ -539,7 +542,7 @@ public class TestUniversidad {
 		unlam.agregarMateria(materia);
 		alumno.agregarMateria(materia);
 		Nota nota = new Nota(10, 10, 10, 9);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		unlam.agregarAlumno(alumno);
 		unlam.registrarNota(idComi, alumno.getDni(), nota);
@@ -581,7 +584,7 @@ public class TestUniversidad {
 		alumno.agregarMateria(materia);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Profesor profe = new Profesor(dni, apellido, nombre);
 		unlam.agregarDocentes(profe);
@@ -613,7 +616,7 @@ public class TestUniversidad {
 	}
 
 	@Test
-	public void queUnAlumnoNSePuedaInscribirPorqueEstaEnDeFecha() {
+	public void queUnAlumnoNoSePuedaInscribirPorqueEstaFueraDeFecha() {
 		String nombre = "Unlam";
 		Universidad unlam = new Universidad(nombre);
 		nombre = "Marta";
@@ -641,10 +644,11 @@ public class TestUniversidad {
 		alumno.agregarMateria(materia);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
-		Aula aula = new Aula(15, 50, idComi);
+		Aula aula = new Aula(15, 50);
 		unlam.agregarAula(aula);
+		unlam.asignarAulaAlaComision(comi1.getId(), aula.getId());
 		assertTrue(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 
@@ -670,18 +674,18 @@ public class TestUniversidad {
 		unlam.agregarAlumno(alumno);
 		Profesor profesor = new Profesor(codigo, apellido, nombre);
 		unlam.agregarDocentes(profesor);
-		Materia materia = new Materia(1005, "PB1");
+		//Materia materia = new Materia(1005, "PB1");
 		Materia materia2 = new Materia(1006, "PB2");
-		unlam.agregarMateria(materia);
+		//unlam.agregarMateria(materia);
 		unlam.agregarMateria(materia2);
-		alumno.agregarMateria(materia);
-		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
-		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		//alumno.agregarMateria(materia);
+		//unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
+		//Nota nota = new Nota(10, 10, 10, 10);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Aula aula = new Aula(15, 50);
 		unlam.agregarAula(aula);
-		assertTrue(unlam.asignarAulaAlaComision(comi1.getId(), profesor.getDni()));
+		assertTrue(unlam.asignarAulaAlaComision(comi1.getId(), aula.getId()));
 	}
 
 	@Test
@@ -713,11 +717,11 @@ public class TestUniversidad {
 		alumno.agregarMateria(materia);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
 		Aula aula = new Aula(15, 0);
 		unlam.agregarAula(aula);
-		unlam.asignarAulaAlaComision(idComi, profesor.getDni());
+		unlam.asignarAulaAlaComision(idComi, aula.getId());
 		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 
@@ -751,11 +755,11 @@ public class TestUniversidad {
 		alumno.agregarMateria(materia2);
 		unlam.agregarCorrelatividad(materia.getCodigo(), materia2.getCodigo());
 		Nota nota = new Nota(10, 10, 10, 10);
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
+		Comision comi1 = new Comision(idComi, materia2, ciclo1, turno);
 		unlam.agregarComision(comi1);
-		Aula aula = new Aula(15, 15, idComi);
+		Aula aula = new Aula(15, 15);
 		unlam.agregarAula(aula);
-		unlam.asignarAulaAlaComision(idComi, profesor.getDni());
+		unlam.asignarAulaAlaComision(idComi, aula.getId());
 		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 
@@ -801,10 +805,10 @@ public class TestUniversidad {
 		alumno.agregarNotas(nota2.getNotaFinal());
 		alumno.agregarNotas(nota3.getNotaFinal());
 		alumno.agregarNotas(nota4.getNotaFinal());
-		Comision comi1 = new Comision(idComi, alumno, profesor, materia, ciclo1, nota, turno);
-		Comision comi2 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota2, turno);
-		Comision comi3 = new Comision(idComi, alumno, profesor, materia3, ciclo1, nota3, turno);
-		Comision comi4 = new Comision(idComi, alumno, profesor, materia4, ciclo1, nota4, turno);
+		Comision comi1 = new Comision(idComi, materia, ciclo1, turno);
+		Comision comi2 = new Comision(idComi, materia2, ciclo1, turno);
+		Comision comi3 = new Comision(idComi, materia3, ciclo1, turno);
+		Comision comi4 = new Comision(idComi, materia4, ciclo1, turno);
 		UNLaM.agregarComision(comi1);
 		UNLaM.agregarComision(comi2);
 		UNLaM.agregarComision(comi3);
