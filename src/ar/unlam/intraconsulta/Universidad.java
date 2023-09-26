@@ -282,7 +282,20 @@ public class Universidad {
         return null;
     }
 
-	
-
-	
+	public Double calcularPromedio(Alumno alumnos) {
+        Double promedio=0.0;
+        Double totalNotasMateriasAprobadas=0.0;
+        Double cantidadMateriasAprobadas=0.0;
+        for (int i = 0; i < alumnos.getNotasMaterias().size(); i++) {
+            totalNotasMateriasAprobadas+=alumnos.getNotasMaterias().get(i);
+        }
+        cantidadMateriasAprobadas=(double) alumnos.getMateriasAprobadas().size();
+        promedio=totalNotasMateriasAprobadas/cantidadMateriasAprobadas;
+       // System.out.println(cantidadMateriasAprobadas);
+       // System.out.println(totalNotasMateriasAprobadas);
+       // System.out.println(promedio);
+        return promedio;
+        
+    }
 }
+
