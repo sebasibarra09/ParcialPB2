@@ -645,7 +645,7 @@ public class TestUniversidad {
 		unlam.agregarComision(comi1);
 		Aula aula = new Aula(15, 50, idComi);
 		unlam.agregarAula(aula);
-		assertTrue(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId(), aula.getId()));
+		assertTrue(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 
 	@Test
@@ -679,9 +679,9 @@ public class TestUniversidad {
 		Nota nota = new Nota(10, 10, 10, 10);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Aula aula = new Aula(15, 50, idComi);
+		Aula aula = new Aula(15, 50);
 		unlam.agregarAula(aula);
-		assertTrue(unlam.asignarAulaAlaComision(comi1.getId(), profesor.getDni(), aula.getId()));
+		assertTrue(unlam.asignarAulaAlaComision(comi1.getId(), profesor.getDni()));
 	}
 
 	@Test
@@ -715,10 +715,10 @@ public class TestUniversidad {
 		Nota nota = new Nota(10, 10, 10, 10);
 		Comision comi1 = new Comision(idComi, alumno, profesor, materia2, ciclo1, nota, turno);
 		unlam.agregarComision(comi1);
-		Aula aula = new Aula(15, 0, idComi);
+		Aula aula = new Aula(15, 0);
 		unlam.agregarAula(aula);
-		unlam.asignarAulaAlaComision(idComi, profesor.getDni(), aula.getId());
-		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId(), aula.getId()));
+		unlam.asignarAulaAlaComision(idComi, profesor.getDni());
+		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 
 	@Test
@@ -755,8 +755,8 @@ public class TestUniversidad {
 		unlam.agregarComision(comi1);
 		Aula aula = new Aula(15, 15, idComi);
 		unlam.agregarAula(aula);
-		unlam.asignarAulaAlaComision(idComi, profesor.getDni(), aula.getId());
-		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId(), aula.getId()));
+		unlam.asignarAulaAlaComision(idComi, profesor.getDni());
+		assertFalse(unlam.inscribirAlumnoAComision(alumno.getDni(), comi1.getId()));
 	}
 
 	@Test
@@ -811,7 +811,7 @@ public class TestUniversidad {
 		UNLaM.agregarComision(comi4);
 		Double valorEsperado = 8.75;
 
-		assertEquals(valorEsperado, UNLaM.calcularPromedio(alumno),0.01);
+		assertEquals(valorEsperado, UNLaM.calcularPromedio(alumno), 0.01);
 
 	}
 

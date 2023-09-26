@@ -5,7 +5,7 @@ public class Aula {
 	private Integer id;
 	private Integer cantidadAlumnos;
 	private Integer idComision;
-	
+	//private ArrayList<Profesores> profesores;
 	
 
 	public Aula(Integer id, Integer cantidadAlumnos, Integer idComision) {
@@ -13,6 +13,11 @@ public class Aula {
 		this.id = id;
 		this.cantidadAlumnos = cantidadAlumnos;
 		this.idComision = idComision;
+	}
+
+	public Aula(Integer id, Integer cantidadAlumnos) {
+		this.id = id;
+		this.cantidadAlumnos = cantidadAlumnos;
 	}
 
 	public Integer getId() {
