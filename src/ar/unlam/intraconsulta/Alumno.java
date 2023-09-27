@@ -20,8 +20,6 @@ public class Alumno {
 		this.apellido = apellido;
 		this.nombre = nombre;
 	}
-	
-	
 
 	public Alumno(Integer dni, LocalDate fechaNacimiento, String apellido, String nombre,
 			ArrayList<Materia> materiasAprobadas, ArrayList<Integer> notasMaterias) {
@@ -33,16 +31,14 @@ public class Alumno {
 		this.materiasAprobadas = materiasAprobadas;
 		this.notasMaterias = notasMaterias;
 	}
-	
+
 	public void agregarMateria(Materia mat) {
 		materiasAprobadas.add(mat);
 	}
-	
+
 	public void agregarNotas(Integer nota) {
 		notasMaterias.add(nota);
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -101,25 +97,17 @@ public class Alumno {
 		this.nombre = nombre;
 	}
 
-
-
 	public ArrayList<Materia> getMateriasAprobadas() {
 		return materiasAprobadas;
 	}
-
-
 
 	public void setMateriasAprobadas(ArrayList<Materia> materiasAprobadas) {
 		this.materiasAprobadas = materiasAprobadas;
 	}
 
-
-
 	public ArrayList<Integer> getNotasMaterias() {
 		return notasMaterias;
 	}
-
-
 
 	public void setNotasMaterias(ArrayList<Integer> notasMaterias) {
 		this.notasMaterias = notasMaterias;

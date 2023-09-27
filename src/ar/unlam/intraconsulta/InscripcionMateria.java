@@ -4,7 +4,6 @@ public class InscripcionMateria {
 
 	private Alumno alumno;
 	private Materia materia;
-	/* private Nota nota; */
 
 	public InscripcionMateria(Alumno alumno, Materia materia) {
 		this.alumno = alumno;

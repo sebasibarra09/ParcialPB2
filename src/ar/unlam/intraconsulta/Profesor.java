@@ -5,8 +5,6 @@ public class Profesor {
 	private Integer dni;
 	private String apellido;
 	private String nombre;
-	
-	
 
 	@Override
 	public int hashCode() {

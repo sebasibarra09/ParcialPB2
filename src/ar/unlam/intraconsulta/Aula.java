@@ -1,11 +1,10 @@
 package ar.unlam.intraconsulta;
 
 public class Aula {
-	
+
 	private Integer id;
 	private Integer cantidadAlumnos;
 	private Integer idComision;
-	
 
 	public Aula(Integer id, Integer cantidadAlumnos, Integer idComision) {
 		super();
@@ -43,5 +42,4 @@ public class Aula {
 		this.idComision = idComision;
 	}
 
-	
 }

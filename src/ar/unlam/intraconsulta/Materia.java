@@ -4,8 +4,7 @@ public class Materia {
 
 	private Integer codigo;
 	private String nombre;
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,7 +33,7 @@ public class Materia {
 	public Materia(Integer codigo, String nombre) {
 		this.codigo = codigo;
 		this.nombre = nombre;
-	
+
 	}
 
 	public Integer getCodigo() {

@@ -1,14 +1,9 @@
 package ar.unlam.intraconsulta;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 
 public class Universidad {
-
 	private String nombre;
 	private ArrayList<Alumno> alumnos;
 	private ArrayList<Materia> materias;
@@ -61,20 +56,17 @@ public class Universidad {
 				return false;
 		}
 		return this.comisiones.add(comi);
-
 	}
 
 	public Boolean agregarDocentes(Profesor profe) {
 		if (!this.profesores.contains(profe))
 			return this.profesores.add(profe);
 		return false;
-
 	}
 
 	public Boolean asignarDocentesAComision(Profesor profe, Comision comi) {
 		if (!comi.getProfesores().contains(profe)) {
 			comi.agregarProfesorAComision(profe);
-			// System.out.println(comi.getProfesores());
 			return true;
 		}
 		return false;
@@ -169,7 +161,6 @@ public class Universidad {
 		Comision comi = this.buscarComisionPorId(idComision);
 
 		Aula aula = this.buscarAulaPorId(idAula);
-		// System.out.println(aula);
 		if (comi != null && aula != null) {
 			if (aula.getIdComision() == null) {
 				aula.setIdComision(idComision);
@@ -177,7 +168,6 @@ public class Universidad {
 			}
 			return true;
 		}
-
 		return false;
 	}
 
@@ -202,7 +192,7 @@ public class Universidad {
 		} else {
 			comi.getAula().setCantidadAlumnos(comi.getAula().getCantidadAlumnos() - 1);
 		}
-
+		
 		for (int i = 0; i < this.comisiones.size(); i++) {
 			if (this.comisiones.get(i) != comi)
 				if (this.comisiones.get(i).getAlumnos().contains(alumno)) {
@@ -211,11 +201,9 @@ public class Universidad {
 					}
 				}
 		}
-
 		if (alumno.getMateriasAprobadas().contains(comi.getMateria())) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -266,7 +254,6 @@ public class Universidad {
 	public ArrayList<Materia> obtenerMateriasAprobadasParaUnAlumno(Integer idAlumno) {
 		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
 		return alumno.getMateriasAprobadas();
-
 	}
 
 	public ArrayList<Materia> obtenerMateriasFaltantesParaUnAlumno(Integer idAlumno) {
@@ -277,12 +264,10 @@ public class Universidad {
 				materiasRestantes.add(materia);
 			}
 		}
-		// System.out.println(materiasRestantes);
 		return materiasRestantes;
 	}
 
 	public Integer obtenerNota(Integer idAlumno, Integer idMateria) {
-
 		Alumno alumno = this.buscarAlumnoPorDni(idAlumno);
 		for (int i = 0; i < alumno.getMateriasAprobadas().size(); i++) {
 			if (alumno.getMateriasAprobadas().get(i).getCodigo().equals(idMateria)) {
@@ -301,11 +286,7 @@ public class Universidad {
 		}
 		cantidadMateriasAprobadas = (double) alumnos.getMateriasAprobadas().size();
 		promedio = totalNotasMateriasAprobadas / cantidadMateriasAprobadas;
-		// System.out.println(cantidadMateriasAprobadas);
-		// System.out.println(totalNotasMateriasAprobadas);
-		// System.out.println(promedio);
 		return promedio;
-
 	}
 
 	public Boolean asignarProfesorAlaComision(Integer idComision, Integer dniDocente) {
@@ -318,7 +299,6 @@ public class Universidad {
 			}
 			return true;
 		}
-
 		return false;
 	}
 }

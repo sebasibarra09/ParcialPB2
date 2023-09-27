@@ -4,47 +4,47 @@ import java.util.ArrayList;
 
 public class Comision {
 
-    private Integer id;
-    private ArrayList<Alumno> alumnos = new ArrayList<>();
-    private ArrayList<Profesor> profesores = new ArrayList<>();
-    private Materia materia;
-    private CicloElectivo cicloElec;
-    private ArrayList<Nota> notas = new ArrayList<>();
-    private String turnoyDia;
-    private Aula aula;
+	private Integer id;
+	private ArrayList<Alumno> alumnos = new ArrayList<>();
+	private ArrayList<Profesor> profesores = new ArrayList<>();
+	private Materia materia;
+	private CicloElectivo cicloElec;
+	private ArrayList<Nota> notas = new ArrayList<>();
+	private String turnoyDia;
+	private Aula aula;
 
-    public Comision(Integer id, Materia materia, CicloElectivo cicloElec, String turnoyDia) {
-        super();
-        this.id = id;
-        this.materia = materia;
-        this.cicloElec = cicloElec;
-        this.turnoyDia = turnoyDia;
-    }
+	public Comision(Integer id, Materia materia, CicloElectivo cicloElec, String turnoyDia) {
+		super();
+		this.id = id;
+		this.materia = materia;
+		this.cicloElec = cicloElec;
+		this.turnoyDia = turnoyDia;
+	}
 
-    public Comision(Integer id, ArrayList<Alumno> alumnos, ArrayList<Profesor> profesores, Materia materia,
-            CicloElectivo cicloElec, ArrayList<Nota> nota, String turnoyDia, Aula aula) {
-        super();
-        this.id = id;
-        this.alumnos = alumnos;
-        this.profesores = profesores;
-        this.materia = materia;
-        this.cicloElec = cicloElec;
-        this.notas = nota;
-        this.turnoyDia = turnoyDia;
-        this.aula = aula;
-    }
-    
-    public void agregarProfesorAComision(Profesor profe) {
-    	profesores.add(profe);
-    }
-    
-    public void agregarAlumnosAComision(Alumno alumno) {
-    	alumnos.add(alumno);
-    }
-    
-    public void agregarNotasAComision(Nota nota) {
-    	notas.add(nota);
-    }
+	public Comision(Integer id, ArrayList<Alumno> alumnos, ArrayList<Profesor> profesores, Materia materia,
+			CicloElectivo cicloElec, ArrayList<Nota> nota, String turnoyDia, Aula aula) {
+		super();
+		this.id = id;
+		this.alumnos = alumnos;
+		this.profesores = profesores;
+		this.materia = materia;
+		this.cicloElec = cicloElec;
+		this.notas = nota;
+		this.turnoyDia = turnoyDia;
+		this.aula = aula;
+	}
+
+	public void agregarProfesorAComision(Profesor profe) {
+		profesores.add(profe);
+	}
+
+	public void agregarAlumnosAComision(Alumno alumno) {
+		alumnos.add(alumno);
+	}
+
+	public void agregarNotasAComision(Nota nota) {
+		notas.add(nota);
+	}
 
 	public Integer getId() {
 		return id;
@@ -109,43 +109,5 @@ public class Comision {
 	public void setAula(Aula aula) {
 		this.aula = aula;
 	}
-
-/*public class Comision {
-
-	private Integer id;
-	private ArrayList<Alumno> alumnos;
-	private Profesor profesor;
-	private Materia materia;
-	private CicloElectivo cicloElec;
-	private Nota nota;
-	private String turno;
-	private Aula aula;
-
-	public Comision(Integer id, Alumno alumno, Profesor profesor, Materia materia, CicloElectivo cicloElec, Nota nota,
-			String turno) {
-		super();
-		this.id = id;
-		this.alumnos = new ArrayList<Alumno>();
-		this.profesor = profesor;
-		this.materia = materia;
-		this.cicloElec = cicloElec;
-		this.nota = nota;
-		this.turno = turno;
-	}
-	
-	
-
-	public Comision(Integer id, ArrayList<Alumno> alumnos, Profesor profesor, Materia materia, CicloElectivo cicloElec,
-			Nota nota, String turno, Aula aula) {
-		super();
-		this.id = id;
-		this.alumnos = alumnos;
-		this.profesor = profesor;
-		this.materia = materia;
-		this.cicloElec = cicloElec;
-		this.nota = nota;
-		this.turno = turno;
-		this.aula = aula;
-	}*/
 
 }
